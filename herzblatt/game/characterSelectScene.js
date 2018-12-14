@@ -20,9 +20,9 @@ var characterSelectScene = new Phaser.Class({
 
         this.input.once('pointerdown', function () {
 
-            console.log('From characterSelectScene to titleScene');
+            console.log('From characterSelectScene to dialogueScene');
 
-            this.scene.start('titleScene');
+            this.scene.start('dialogueScene');
 
         }, this);
     }

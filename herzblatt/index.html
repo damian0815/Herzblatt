@@ -9,11 +9,41 @@
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser.js"></script>
     <script src="game/titleScene.js"></script>
     <script src="game/characterSelectScene.js"></script>
+    <script src="game/dialogueScene.js"></script>
 
     <script src="game/game.js"></script>
+
+    <script type="text/javascript" src="lib/jQuery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            function loadBattleWW() {
+                $.ajax({
+                    url: 'assets/dialogue/Herzblatt3.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#dialogueWW').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            // function loadBattleFIN() {
+            //     $.ajax({
+            //         url: 'assets/dialogues/ArrestSuspect-final.html'
+            //     }).done(function (resp) {
+            //         var parsedHtml = $.parseHTML(resp);
+            //         $('#dialogueWW').append($(parsedHtml).children('tw-passagedata'))
+            //     }).fail(function(){
+            //         alert("could not load dialouge");
+            //     })
+            // }
+            loadBattleWW();
+            // loadBattleFIN();
+        })
+    </script>
 </head>
 
 <body>
+<div id="dialogueWW" style="display: none;"></div>
 </body>
 
 </html>
