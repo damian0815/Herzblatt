@@ -1,0 +1,67 @@
+{
+  "name":"Test Dialogue",
+  "key":"test",
+  "dialogue":{
+    "char":{
+      "options1":4,
+      "speech1": {
+        "1": {
+          "text": "Good Day to you",
+          "follow": "2"
+        },
+        "2": {
+          "text": "Nothing",
+          "follow": "2"
+        },
+        "3": {
+          "text": "Something",
+          "follow": "2"
+        },
+        "4": {
+          "text": "Whatever",
+          "follow": "2"
+        }
+      },
+      "options2":4,
+      "speech2": {
+        "1": {
+          "text": "Good Day to you",
+          "follow": "002"
+        },
+        "2": {
+          "text": "Nothing",
+          "follow": "002"
+        },
+        "3": {
+          "text": "Something",
+          "follow": "002"
+        },
+        "4": {
+          "text": "Whatever",
+          "follow": "002"
+        }
+      }
+
+    },
+    "npc":{
+        "speech1": {
+          "1": {
+            "text": "Thanks by",
+            "follow": "1"
+          },
+          "2": {
+            "text": "Doing something",
+            "follow": "2"
+          },
+          "3": {
+            "text": "Never",
+            "follow": "2"
+          },
+          "4": {
+            "text": "Always",
+            "follow": "2"
+          }
+        }
+    }
+  }
+}

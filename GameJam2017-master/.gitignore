@@ -1,0 +1,7 @@
+# gitignore for ignoring files
+
+**tmp**
+*.user
+gamedev.zip
+**workspace.xml
+gamedev/.idea/workspace.xml

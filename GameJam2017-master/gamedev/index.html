@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title> Cookies and Crime </title>
+    <meta name="viewport" content="initial-scale=1.0" />
+
+
+
+    <script type="text/javascript" src="js/boot.js"></script>
+    <script type="text/javascript" src="js/preLoad.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/credits.js"></script>
+    <script type="text/javascript" src="js/preGame.js"></script>
+    <script type="text/javascript" src="js/intro.js"></script>
+    <script type="text/javascript" src="js/end.js"></script>
+    <script type="text/javascript" src="js/rooms/room01.js"></script>
+    <script type="text/javascript" src="js/rooms/room02.js"></script>
+    <script type="text/javascript" src="js/rooms/room03.js"></script>
+    <script type="text/javascript" src="js/rooms/room04.js"></script>
+    <script type="text/javascript" src="js/rooms/room05.js"></script>
+    <script type="text/javascript" src="js/rooms/room06.js"></script>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/jQuery.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          function loadBattleWW() {
+              $.ajax({
+                  url: 'assets/dialogues/DIALOGUE-final.html'
+              }).done(function (resp) {
+                var parsedHtml = $.parseHTML(resp);
+                $('#dialogueWW').append($(parsedHtml).children('tw-passagedata'))
+              }).fail(function(){
+                  alert("could not load dialouge");
+              })
+          }function loadBattleFIN() {
+              $.ajax({
+                  url: 'assets/dialogues/ArrestSuspect-final.html'
+              }).done(function (resp) {
+                  var parsedHtml = $.parseHTML(resp);
+                  $('#dialogueWW').append($(parsedHtml).children('tw-passagedata'))
+              }).fail(function(){
+                  alert("could not load dialouge");
+              })
+          }
+          loadBattleWW();
+          loadBattleFIN();
+      })
+    </script>
+  </head>
+
+  <body>
+
+  <div id="dialogueWW" style="display: none;"></div>
+
+  </body>
+</html>
+
