@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
-    width: 1280,
-    height: 720,
+    width: 800,
+    height: 640,
     backgroundColor: '#000000',
     scene: [ titleScene, characterSelectScene ]
 };
