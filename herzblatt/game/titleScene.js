@@ -11,6 +11,7 @@ var titleScene = new Phaser.Class({
 
     preload: function ()
     {
+        this.load.audio('titleMusic', ['assets/music/titles.mp3']);
         this.load.image('title', 'assets/pics/title.jpg');
         this.load.image('play', 'assets/buttons/play.png');
     },
@@ -18,6 +19,9 @@ var titleScene = new Phaser.Class({
     create: function ()
     {
         this.add.sprite(400, 200, 'title');
+
+        var music = this.sound.add('titleMusic', { loop:true });
+        music.play();
 
         this.add.text(100, 100, 'Herzblatt');
         this.add.text(100, 400, 'A game by Some People for Klagenfurt Winter Game Jam 2018');
