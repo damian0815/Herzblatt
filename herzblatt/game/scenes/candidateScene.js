@@ -73,20 +73,46 @@ var candidateScene = new Phaser.Class({
             this.diagButtons[i].visible = true;
             this.diagButtonText[i].visible = true;
 
-            this.selectedDiagButton = 0;
-
             // set button correspondence
 
             posY += 45;
         }
+
+
         this.dialogueText.visible = true;
+
+        this.selectedDiagButton = 0;
+        this.selectDiagButton(0);
 
         var that = this;
         this.input.keyboard.on('keydown_ENTER', function() {
-            console.log("Pressed ENTER.");
-            that.onPOButtonClick(that.diagButtons[that.selectedDiagButton], that.selectedDiagButton);
+            console.log("Pressed ENTER, selected diag button is: " + that.selectedDiagButton);
+            that.onPOButtonClick(that.selectedDiagButton, that);
             that.goToBachelorScene();
         });
+
+        this.input.keyboard.on('keydown_UP', function() {
+            var next = that.selectedDiagButton - 1;
+            if (next >= 0) {
+                that.selectDiagButton(next);
+            }
+        });
+        this.input.keyboard.on('keydown_DOWN',function() {
+            var next = that.selectedDiagButton + 1;
+            if (next < NO_DBUTTONS) {
+                that.selectDiagButton(next);
+            }
+        });
+
+
+
+    },
+
+    selectDiagButton: function(buttonIndex) {
+
+        this.diagButtons[this.selectedDiagButton].setTint(0xffffff);
+        this.selectedDiagButton = buttonIndex;
+        this.diagButtons[this.selectedDiagButton].setTint(0xffaaaa);
 
     },
 

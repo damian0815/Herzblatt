@@ -27,24 +27,24 @@ var bachelorScene = new Phaser.Class({
     createDialogue: function() {
 
         // Create Dialogue Background
-        this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
+        this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0, 1);
         this.dialogueBGBox.displayWidth = GAME_WIDTH;
-        this.dialogueBGBox.displayHeight = 40 + 2*TEXT_Y_MARGIN;
+        this.dialogueBGBox.displayHeight = 40 + 2 * TEXT_Y_MARGIN;
         this.dialogueBGBox.visible = true;
 
         // Create Dialogue Text
-        this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth)/2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, "", DiagTextSyle);
-        this.dialogueText.setOrigin(0,0);
+        this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth) / 2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, "", DiagTextSyle);
+        this.dialogueText.setOrigin(0, 0);
         this.dialogueText.visible = false;
 
         // TODO(martin): add next button here
-        this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
+        this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0, 0).setInteractive();
         this.dialogueBGBox.visible = true;
 
         // Load Texts depending on DiagState
         if (DiagState === DiagStateEnum.quest)
             this.dialogueText.setText(Questions[QuestNo].question);
-        else if (DiagState === DiagStateEnum.resp ) {
+        else if (DiagState === DiagStateEnum.resp) {
 
             // Let Bachelor react
             var rand_react = 0;// use random reaction
@@ -71,19 +71,29 @@ var bachelorScene = new Phaser.Class({
 
         // Set Button Functionality
         var that = this;
-        this.nextButton.on('pointerdown', function(pointer) {
+        this.nextButton.on('pointerdown', function (pointer) {
             console.log("Pressed NEXT.");
 
-            if (CandSeqNo >= CandidateSequ.length){
-                if (AskedQuestions >= NO_TOTQUEST)
-                //TODO(martin) endgamescene;
-                    log('END');
-                else
-                    that.loadNextQuestion();
-            }
-            else
-                that.scene.start('candidateScene');
+            that.nextButtonPressed();
         });
+
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log("Pressed ENTER.");
+            that.nextButtonPressed();
+        });
+
+    },
+
+    nextButtonPressed: function() {
+        if (CandSeqNo >= CandidateSequ.length){
+            if (AskedQuestions >= NO_TOTQUEST)
+            //TODO(martin) endgamescene;
+                log('END');
+            else
+                this.loadNextQuestion();
+        }
+        else
+            this.scene.start('candidateScene');
     },
 
     loadNextQuestion: function() {

@@ -20,7 +20,7 @@ var questionIntroScene = new Phaser.Class({
         this.add.text(100, 100, 'questionIntroSceneBG.jpg\n\nIntro to game. Click to continue.');
 
         this.input.once('pointerdown', function () {
-            this.scene.start('questionScene');
+            this.scene.start('bachelorScene');
         }, this);
     }
 

@@ -37,7 +37,12 @@ var titleScene = new Phaser.Class({
         playButton.on('pointerout', function(pointer) {
             this.clearTint();
         });
-         playButton.on('pointerdown', function(pointer) {
+        playButton.on('pointerdown', function(pointer) {
+            console.log('Clicked play, going to loadingScene');
+            that.scene.start('loadingScene');
+            g_playClick(that);
+        });
+        this.input.keyboard.on('keydown_ENTER', function() {
             console.log('Clicked play, going to loadingScene');
             that.scene.start('loadingScene');
             g_playClick(that);

@@ -139,8 +139,12 @@ var loadingScene = new Phaser.Class({
             this.clearTint();
         });
         playButton.on('pointerdown', function(pointer) {
-            console.log('Clicked play, going to bachelorScene');
-            that.scene.start('bachelorScene');
+            console.log('Clicked play, going to characterSelectScene');
+            that.scene.start('characterSelectScene');
+        });
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log('pressed Enter, going to characterSelectScene');
+            that.scene.start('characterSelectScene');
         });
     },
 
