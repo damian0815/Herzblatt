@@ -11,14 +11,14 @@ var questionScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('bg', 'assets/pics/questionSceneBG.jpg');
+        this.load.image('qbg', 'assets/pics/questionSceneBG.jpg');
         this.hud = new HudComponent(this);
         this.hud.preload();
     },
 
     create: function ()
     {
-        this.add.sprite(640, 360, 'bg');
+        this.add.sprite(640, 360, 'qbg');
         this.add.text(100, 100, 'questionSceneBG.jpg\n\nQuestions and answers. Click to update sliders and continue.');
 
         this.hud.create();

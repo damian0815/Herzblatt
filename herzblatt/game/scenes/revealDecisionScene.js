@@ -11,12 +11,12 @@ var revealDecisionScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('bg', 'assets/pics/revealDecisionBG.jpg');
+        this.load.image('rdbg', 'assets/pics/revealDecisionBG.jpg');
     },
 
     create: function ()
     {
-        this.add.sprite(640, 360, 'bg');
+        this.add.sprite(640, 360, 'rdbg');
         this.add.text(100, 100, 'revealDecisionBG.jpg\n\nBig dramatic reveal of the decision...');
         g_loadClick(this);
         this.time.delayedCall(1500, this.onExplodeTimer, [], this);

@@ -11,12 +11,12 @@ var youLostScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('bg', 'assets/pics/youLostBG.jpg');
+        this.load.image('ylbg', 'assets/pics/youLostBG.jpg');
     },
 
     create: function ()
     {
-        this.add.sprite(640, 360, 'bg');
+        this.add.sprite(640, 360, 'ylbg');
         this.add.text(100, 100, 'youLostBG.jpg\n\nYou lost. click to continue.');
 
         this.input.once('pointerdown', function () {

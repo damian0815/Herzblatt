@@ -15,10 +15,12 @@ var characterSelectScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('background', 'assets/pics/characterSelectBG.png');
+        this.load.image('csbg', 'assets/pics/characterSelectBG.png');
         this.load.image('select', 'assets/pics/characterSelectHighlight.png');
 
         g_loadClick(this);
+        g_loadSwish(this);
+
         //this.load.image('personADescription', 'assets/pics/characterADescription.png');
         //this.load.image('personBDescription', 'assets/pics/characterBDescription.png');
         //this.load.image('personCDescription', 'assets/pics/characterCDescription.png');
@@ -26,7 +28,7 @@ var characterSelectScene = new Phaser.Class({
 
     create: function ()
     {
-        this.add.sprite(640, 360, 'background').setAlpha(1);
+        this.add.sprite(640, 360, 'csbg').setAlpha(1);
 
         this.add.sprite(0, 500, 'personADescription').setAlpha(0);
         this.add.sprite(0, 500, 'personBDescription').setAlpha(0);
@@ -76,6 +78,7 @@ var characterSelectScene = new Phaser.Class({
             if (newIndex == -1) {
                 newIndex = that.kNumCharacters - 1;
             }
+            g_playSwish(that);
             that.selectCharacter(newIndex);
         }, this);
 
@@ -85,6 +88,7 @@ var characterSelectScene = new Phaser.Class({
             if (newIndex == that.kNumCharacters) {
                 newIndex = 0;
             }
+            g_playSwish(that);
             that.selectCharacter(newIndex);
         }, this);
 
