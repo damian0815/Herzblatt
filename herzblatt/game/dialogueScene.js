@@ -17,6 +17,8 @@ var dialogActive;
 var xoffset=10;
 var yoffset=110;
 
+var questions = new Array(20);
+
 var dialogueScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -27,6 +29,8 @@ var dialogueScene = new Phaser.Class({
         {
             Phaser.Scene.call(this, { key: 'dialogueScene' });
 
+            this.readDialogues();
+
             winAns = [0,0,0];
             selAns = [3];
             animationSpeed = [2, 2, 2, 4];
@@ -36,11 +40,7 @@ var dialogueScene = new Phaser.Class({
             diaStyle =  { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: textWidth, align: "justify" };
             diaButStyle = { font: "16px Sans Serif", fill: "#000000", wordWrap: true, wordWrapWidth: textWidth, align: "justify" }
             speechLvl = 0;
-
-            this.questions = [2];
-            this.questions[0] = new Question("Who let the dogs out");
-            this.questions[0].addAnswer(new Answer("Who Who Who", -10, 10));
-            this.questions[0].addAnswer(new Answer("You You You", 10, -10));
+            
         },
 
     preload: function ()
@@ -68,7 +68,7 @@ var dialogueScene = new Phaser.Class({
         dialogueBGBox.displayWidth = gameWidth;
         dialogueBGBox.displayHeight = 240;
         //dialogueBGBox.inputEnabled = true;
-        dialogueText = this.add.text(dialogueBGBox.x + (gameWidth - textWidth)/2, dialogueBGBox.y - dialogueBGBox.displayHeight + 25, this.questions[0].question, diaStyle);
+        dialogueText = this.add.text(dialogueBGBox.x + (gameWidth - textWidth)/2, dialogueBGBox.y - dialogueBGBox.displayHeight + 25, questions[0].question, diaStyle);
         dialogueText.setOrigin(0,0);
         //diag exit button
         // diagExitButton = this.add.button(game.width - 50, dialogueBGBox.y - dialogueBGBox.height + 50, 'cls_button', this.diagExit, this);
@@ -90,7 +90,7 @@ var dialogueScene = new Phaser.Class({
             dialogueButton[i].on('pointerdown', this.onButtonClick.bind(this,i));
             dialogueButton[i].alpha = 0.3;
 
-            buttonText[i] = this.add.text(posX+10, posY+10, this.questions[0].getAnswerManner(i), diaButStyle);
+            buttonText[i] = this.add.text(posX+10, posY+10, questions[0].getAnswer(i), diaButStyle);
 
             dialogueButton[i].visible = true;
             buttonText[i].visible = true;
@@ -101,8 +101,63 @@ var dialogueScene = new Phaser.Class({
 
     onButtonClick: function(button) {
         console.log('Button clicked ' + button );
-    }
+    },
 
+
+    readDialogues :function() {
+        //get start text
+        var startText = $('tw-passagedata[name="Question1"]').html();
+        helpText = startText.split("\n");
+
+        // debug
+        console.log(helpText[0]);
+
+        // Add Question
+        questions[0] = new Question(helpText[0]);
+        console.log(questions[0].question);
+
+        options = helpText.length;
+
+        var pos_answers;
+
+        var k = 1, l = 0;
+        var first = true;
+        for (k=1; k < options; k++){
+            if (helpText[k].startsWith("    "))
+                helpText[k].replace("    ","");
+            if (helpText[k].startsWith("\t"))
+                helpText[k].replace("\t","");
+            if (helpText[k].startsWith("[[") && first){
+                pos_answers = [options - k];
+                pos_answers[l++] = helpText[k];
+                first = false;
+            } else if (helpText[k].startsWith("[[")) {
+                pos_answers[l++] = helpText[k];
+            }
+        }
+
+        console.log(pos_answers);
+
+        // Create Foll/Manner/Text from pos_ans
+        for (i = 0; i < pos_answers.length; ++i) {
+            var split_text = pos_answers[i].split("-&gt;");
+            var split_ans = split_text[0].split("==");
+            var ans_text = split_ans[0].replace("[[","");
+            var mf_text = split_ans[1].split("=");
+            var manner = parseInt(mf_text[0]);
+            var fool = parseInt(mf_text[1]);
+
+            console.log(ans_text);
+            console.log(manner);
+            console.log(fool);
+
+
+            questions[0].addAnswer(new Answer(ans_text, manner, fool));
+        }
+
+
+
+    }
 
 
 });

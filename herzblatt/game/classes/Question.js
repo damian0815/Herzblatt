@@ -6,6 +6,7 @@ class Answer {
     }
 
     get text() {
+        console.log('Sadly no text');
         return this._text;
     }
 
@@ -44,10 +45,12 @@ class Question {
 
     /**
      * Add a new Player Answer to the question
-     * @param answer
+     * @param answer_text
      */
     addAnswer(answer) {
         this.answers[this.answercount++] = answer;
+
+        console.log(this.answers[this.answercount-1].text);
     }
 
     /**
@@ -66,7 +69,15 @@ class Question {
     getAnswerManner(idx_ans) {
         // check if idx is in bounds
         if (idx_ans < this.answercount)
-            return this.answers[i].manner;
+            return this.answers[idx_ans].manner;
+        else
+            console.log('Requested answer index not in bounds');
+    }
+
+    getAnswer(idx_ans) {
+        // check if idx is in bounds
+        if (idx_ans < this.answercount)
+            return this.answers[idx_ans].text;
         else
             console.log('Requested answer index not in bounds');
     }
