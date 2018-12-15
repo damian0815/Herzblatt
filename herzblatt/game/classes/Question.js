@@ -83,8 +83,11 @@ class Question {
             console.error('Requested answer index not in bounds');
     }
 
-    getResponse(manner, fool) {
+    getResponse(idx_resp) {
+        if (idx_resp < 0 || idx_resp > this.responses)
+            console.error("Response Index out of Bounds.");
 
+        return this.responses[idx_resp];
     }
 
     get question() {
