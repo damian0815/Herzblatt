@@ -40,7 +40,7 @@ var candidateScene = new Phaser.Class({
     },
 
     createDialogueNPC: function() {
-        
+
         // add buttons
         this.diagButtons = new Array(NO_DBUTTONS);
         this.diagButtonText = new Array(NO_DBUTTONS);
@@ -85,6 +85,8 @@ var candidateScene = new Phaser.Class({
         posX = Math.floor(this.dialogueBGBox.x + (GAME_WIDTH - TEXT_WIDTH)/2);
         posY = Math.floor(this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + 50);
 
+        console.log(Candidates[CandidateSequ[CandSeqNo]-1].charType);
+
         this.diagButtons = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0);
         this.diagButtons.alpha = 0.3;
         this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(Candidates[CandidateSequ[CandSeqNo]-1].charType), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
@@ -104,10 +106,16 @@ var candidateScene = new Phaser.Class({
     },
 
     onPOButtonClick: function(button, that) {
-        console.log('Button clicked ' + button );
+        var idx_ans = this.diagButtonCors[button];
+        console.log('Button clicked ' + button + ' at idx ' + idx_ans);
 
         // TODO(martin): add player fool and manner
-        console.log("Fool: " + Questions[QuestNo].getAnswerFool(this.diagButtonCors[button]) + " Manner: " + Questions[QuestNo].getAnswerManner(this.diagButtonCors[button]));
+        console.log("Fool: " + Questions[QuestNo].getAnswerFool(idx_ans) + " Manner: " + Questions[QuestNo].getAnswerManner(idx_ans));
+
+        Questions[QuestNo].setAnswerSector(idx_ans);
+        Player.addFM(Questions[QuestNo].getAnswerFool(idx_ans), Questions[QuestNo].getAnswerManner(idx_ans));
+
+        console.log("AnsSector " + Questions[QuestNo].ansSector);
 
         DiagState = DiagStateEnum.resp;
         that.scene.start('bachelorScene');

@@ -52,8 +52,8 @@ var loadingScene = new Phaser.Class({
 
             // Initialize Candidates
             for (var i = 0; i < Candidates.length; i++) {
-                rand_type = Math.ceil(Math.random() * 4); // random value between 1 and 4
-                rand_type = rand_type === 0 ? 1 : rand_type; // correct the  possibility of getting 0
+                rand_type = Math.floor(Math.random() * 4); // random value between 1 and 4
+                rand_type = rand_type === 4 ? 3 : rand_type; // correct the  possibility of getting 0
                 Candidates[i] = new Person(rand_type, false);
                 console.log("Created Candidate " + i + " with type " + rand_type);
             }
@@ -192,7 +192,7 @@ var loadingScene = new Phaser.Class({
             var resp = split_text[1];
             var r_idx = parseInt(split_text[0].replace("==",""));
 
-            Questions[idx_q].addResponse(resp, r_idx);
+            Questions[idx_q].addResponse(resp, r_idx-1);
         }
     },
 

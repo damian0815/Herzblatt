@@ -41,18 +41,26 @@ var bachelorScene = new Phaser.Class({
         if (DiagState === DiagStateEnum.quest)
             this.dialogueText.setText(Questions[QuestNo].question);
         else if (DiagState === DiagStateEnum.resp ) {
-            CandSeqNo++;
 
-            // TODO(martin): reaction of bachelor here
-            this.dialogueText.setText("Well whatever.");
+            // Let Bachelor react
+            var rand_react = 0;// use random reaction
+            switch (this.bachReaction()) {
+                case 1:
+                    this.dialogueText.setText("I do love that as well.");
+                    break;
+                case 0:
+                    this.dialogueText.setText("Well whatever.");
+                    break;
+                case -1:
+                    this.dialogueText.setText("That .... seems weird.");
+                    break;
+                default:
+                    this.dialogueText.setText("I do not know what to respond to that.");
+                    break;
 
-            if (CandSeqNo >= CandidateSequ.length){
-                if (AskedQuestions >= NO_TOTQUEST)
-                    //TODO(martin) endgamescene;
-                    log('END');
-                else
-                    this.loadNextQuestion();
             }
+
+            CandSeqNo++;
         }
 
         this.dialogueText.visible = true;
@@ -61,7 +69,16 @@ var bachelorScene = new Phaser.Class({
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
             console.log("Pressed NEXT.");
-            that.scene.start('candidateScene');
+
+            if (CandSeqNo >= CandidateSequ.length){
+                if (AskedQuestions >= NO_TOTQUEST)
+                //TODO(martin) endgamescene;
+                    log('END');
+                else
+                    that.loadNextQuestion();
+            }
+            else
+                that.scene.start('candidateScene');
         });
     },
 
@@ -113,6 +130,41 @@ var bachelorScene = new Phaser.Class({
         CandSeqNo = 0;
 
         console.log(CandidateSequ);
+    },
+
+    /**
+     * Calculates the reaction of the bachelor
+     * @returns {number} 1=positive, 0=medium, -1=negative
+     */
+    bachReaction: function() {
+
+        // Convert to Gray Code for easier Computation
+        var cand_sect = Questions[QuestNo].ansSector;
+        var bach_sect = Bachelor.charType;
+
+        console.log("Sectors: " + bach_sect + " vs " + cand_sect);
+
+        if (cand_sect === bach_sect)
+            return 1;
+        else {
+            var cand_sect_gray = cand_sect;
+            var bach_sect_gray = bach_sect;
+            if (cand_sect_gray >= 2){
+                cand_sect_gray = cand_sect === 2 ? 3 : 2;
+            }
+            if (bach_sect_gray >= 2) {
+                bach_sect_gray = bach_sect === 2 ? 3 : 2;
+            }
+
+            console.log("Sectors Gray: " + bach_sect_gray + " vs " + cand_sect_gray);
+
+            if (cand_sect_gray + bach_sect_gray === 3)
+                return -1;
+            else
+                return 0;
+        }
+
+
     }
 
 });
