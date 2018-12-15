@@ -4,7 +4,7 @@
 var gameHeight = 640;
 var gameWidth = 800;
 var textHeight=240;
-var textWidth=800;
+var textWidth=700;
 
 var config = {
     type: Phaser.AUTO,
