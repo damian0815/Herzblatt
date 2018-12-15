@@ -57,7 +57,7 @@ var candidateScene = new Phaser.Class({
             this.diagButtons[i] = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0).setInteractive();
             this.diagButtons[i].on('pointerdown', this.onPOButtonClick.bind(this,i,this));
             this.diagButtons[i].alpha = 0.3;
-            this.diagButtonText[i] = this.add.text(posX+10, posY+10, Questions[0].getAnswer(i), diaButStyle);
+            this.diagButtonText[i] = this.add.text(posX+10, posY+10, Questions[0].getAnswer(i), DiagButTextStyle);
 
             // set visibility
             this.diagButtons[i].visible = true;
@@ -73,17 +73,13 @@ var candidateScene = new Phaser.Class({
         posX = Math.floor(this.dialogueBGBox.x + (GAME_WIDTH - TEXT_WIDTH)/2);
         posY = Math.floor(this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + 50);
 
-        console.log(CandSeqNo);
-        console.log(Candidates);
-
         this.diagButtons = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0);
         this.diagButtons.alpha = 0.3;
-        this.diagButtonText = this.add.text(posX+10, posY+10, Questions[0].getResponse(Candidates[CandidateSequ[CandSeqNo]-1].charType), diaButStyle); // INFO(martin)! WOW IS THIS COMPLICATED
+        this.diagButtonText = this.add.text(posX+10, posY+10, Questions[0].getResponse(Candidates[CandidateSequ[CandSeqNo]-1].charType), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
 
         // add buttons
         this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
         this.dialogueBGBox.visible = true;
-
         this.dialogueText.visible = true;
 
         // Set Button Functionality

@@ -4,7 +4,7 @@
 var NO_QUESTIONS = 3;
 var NO_CANDIDATES = 3;
 var NO_DBUTTONS = 3;
-var NO_TOTQUEST = 6;
+var NO_TOTQUEST = 3;
 
 var DEBUG = true;
 
