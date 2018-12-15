@@ -7,11 +7,15 @@ var bachelorScene = new Phaser.Class({
     initialize:
         function bachelorScene() {
             Phaser.Scene.call(this, { key: 'bachelorScene' });
+
+            this.nextButtonCon = new NextButtonComponent(this);
         },
 
     preload: function() {
         this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
         this.load.image('dialogueButton', 'assets/buttons/dialogueButton.png');
+
+        this.nextButtonCon.preload();
 
         g_loadAllBG(this);
     },
@@ -38,7 +42,8 @@ var bachelorScene = new Phaser.Class({
         this.dialogueText.visible = false;
 
         // TODO(martin): add next button here
-        this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
+        //this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
+        this.nextButtonCon.create();
         this.dialogueBGBox.visible = true;
 
         // Load Texts depending on DiagState

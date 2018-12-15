@@ -5,14 +5,23 @@ var candidateScene = new Phaser.Class({
     initialize:
         function candidateScene() {
             Phaser.Scene.call(this, { key: 'candidateScene' });
+
+            this.nextButtonCon = new NextButtonComponent(this);
         },
 
     preload: function() {
         this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
         this.load.image('dialogueButton', 'assets/buttons/dialogueButton.png');
+
+        this.nextButtonCon.preload();
+
+        // Background
+        g_loadAllBG(this);
     },
 
     create: function() {
+        g_addAllBG(this);
+
         this.createDialogeMain();
 
         if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {
@@ -92,7 +101,8 @@ var candidateScene = new Phaser.Class({
         this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(Candidates[CandidateSequ[CandSeqNo]-1].charType), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
 
         // add buttons
-        this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
+        // this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
+        this.nextButtonCon.create();
         this.dialogueBGBox.visible = true;
         this.dialogueText.visible = true;
 

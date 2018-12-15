@@ -41,6 +41,47 @@
                     alert("could not load dialouge");
                 })
             }
+            function loadQ4() {
+                $.ajax({
+                    url: 'assets/dialogue/Q4.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ5() {
+                $.ajax({
+                    url: 'assets/dialogue/Q5.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ6() {
+                $.ajax({
+                    url: 'assets/dialogue/Q6.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+
+            function loadIntro() {
+                $.ajax({
+                    url: 'assets/dialogue/Intro.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#intro').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load INTRO dialouge");
+                })
+            }
             // function loadBattleFIN() {
             //     $.ajax({
             //         url: 'assets/dialogues/ArrestSuspect-final.html'
@@ -54,11 +95,15 @@
             loadQ1();
             loadQ2();
             loadQ3();
+            loadQ4();
+            loadQ5();
+            loadQ6();
+            loadIntro();
             // loadBattleFIN();
         })
     </script>
 
-    <script src="game/components/hudBGComponent.js"></script>
+    <script src="game/components/sceneBGComponent.js"></script>
     <script src="game/scenes/loadingScene.js"></script>
 
     <script src="game/classes/Question.js"></script>
@@ -71,7 +116,7 @@
     <script src="game/components/hudComponent.js"></script>
     <script src="game/scenes/characterSelectScene.js"></script>
     <script src="game/scenes/questionIntroScene.js"></script>
-    <script src="game/scenes/questionScene.js"></script>
+    <!--script src="game/scenes/questionScene.js"></script-->
     <script src="game/scenes/revealBachelorScene.js"></script>
     <script src="game/scenes/revealDecisionScene.js"></script>
     <script src="game/scenes/titleScene.js"></script>
@@ -83,7 +128,8 @@
 </head>
 
 <body>
-<div id="diags" style="display: none;"></div>
+    <div id="intro" style="display: none;"></div>
+    <div id="diags" style="display: none;"></div>
 </body>
 
 </html>

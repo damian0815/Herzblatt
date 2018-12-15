@@ -1,7 +1,7 @@
 
 
 // DEFINE VARIABLES AND CONSTANTS
-var NO_QUESTIONS = 3;
+var NO_QUESTIONS = 6;
 var NO_CANDIDATES = 3;
 var NO_DBUTTONS = 3;
 var NO_TOTQUEST = 3;
@@ -78,7 +78,7 @@ var loadingScene = new Phaser.Class({
             }
 
             // Set Dialoge Texts
-            DiagTextSyle =  { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: textWidth, align: "justify" };
+            DiagTextSyle =  { font: "16px Arial", fill: "#000000", wordWrap: {width: GAME_WIDTH - 2*DIAG_BASE_TEXT_MARGIN, useAdvancedWrap: true}, align: "justify" };
             DiagButTextStyle = { font: "16px Sans Serif", fill: "#000000", wordWrap: true, wordWrapWidth: textWidth, align: "justify" };
 
 
@@ -140,7 +140,7 @@ var loadingScene = new Phaser.Class({
         });
         playButton.on('pointerdown', function(pointer) {
             console.log('Clicked play, going to bachelorScene');
-            that.scene.start('bachelorScene');
+            that.scene.start('characterSelectScene');
         });
     },
 
