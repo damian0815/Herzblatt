@@ -1,0 +1,20 @@
+Pos:
+0: Mmmh.... yeah.
+1: That sounds great.
+2: I can't wait to hear more.
+3: Cowabunga!
+4: Sweet. 
+
+Med:
+0: Okay.
+1: Aha.
+2: Sure.
+3: Well...
+4: If you say so.
+
+Neg:
+0: Ew!
+1: Talk to the hand.
+2: Excuse me?
+3: That sounds awful.
+4: Who would say that?
