@@ -75,6 +75,14 @@ class Question {
             console.error('Requested answer index not in bounds');
     }
 
+    getAnswerFool(idx_ans) {
+        // check if idx is in bounds
+        if (idx_ans < this.answercount)
+            return this.answers[idx_ans].fool;
+        else
+            console.error('Requested answer index not in bounds');
+    }
+
     getAnswer(idx_ans) {
         // check if idx is in bounds
         if (idx_ans < this.answercount)

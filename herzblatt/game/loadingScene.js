@@ -76,7 +76,7 @@ var loadingScene = new Phaser.Class({
                 Questions[i] = new Question(help_text1[0]);
                 AskedQuestions[i] = false;
                 this.decomposeDialogue(help_text1, i);
-                this.decomposeResponses(help_text2, i)
+                this.decomposeResponses(help_text2, i);
 
             }
 
