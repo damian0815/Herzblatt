@@ -12,16 +12,36 @@ var questionScene = new Phaser.Class({
     preload: function ()
     {
         this.load.image('bg', 'assets/pics/questionSceneBG.jpg');
+        this.hud = new HudComponent(this);
+        this.hud.preload();
     },
 
     create: function ()
     {
         this.add.sprite(640, 360, 'bg');
-        this.add.text(100, 100, 'questionSceneBG.jpg\n\nQuestions and answers. Click to continue.');
+        this.add.text(100, 100, 'questionSceneBG.jpg\n\nQuestions and answers. Click to update sliders and continue.');
 
-        this.input.once('pointerdown', function () {
-            this.scene.start('revealDecisionScene');
+        this.hud.create();
+
+        this.clickCounter = 3;
+
+        var that = this;
+        this.input.on('pointerdown', function () {
+            console.log('click counter: ' + that.clickCounter);
+            that.clickCounter = that.clickCounter - 1;
+            if (that.clickCounter > 0) {
+                that.updateHud();
+            } else {
+                that.scene.start('revealDecisionScene');
+            }
         }, this);
+    },
+
+    updateHud: function()
+    {
+        var foolPct = Phaser.Math.FloatBetween(0, 1);
+        var mannersPct = Phaser.Math.FloatBetween(0, 1);
+        this.hud.updateStatBars(foolPct, mannersPct);
     }
 
 });
