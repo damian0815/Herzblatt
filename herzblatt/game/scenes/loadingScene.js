@@ -26,9 +26,6 @@ var QuestNo;
 var CandidateSequ = new Array(NO_CANDIDATES);
 var CandSeqNo;
 var DiagState;
-var DiagText;
-// var DiagButtons = new Array(NO_DBUTTONS);
-// var diagButtonText = new Array(NO_DBUTTONS);
 var DiagTextSyle;
 var DiagButTextStyle;
 
@@ -197,3 +194,4 @@ var loadingScene = new Phaser.Class({
     },
 
 });
+

@@ -12,16 +12,20 @@ var bachelorScene = new Phaser.Class({
     preload: function() {
         this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
         this.load.image('dialogueButton', 'assets/buttons/dialogueButton.png');
+
+        g_loadAllBG(this);
     },
 
     create: function() {
+        // Load Background
+        g_addAllBG(this);
+
         AskedQuestions[QuestNo] = true;
         this.createDialogue();
-
-
     },
 
     createDialogue: function() {
+
         // Create Dialogue Background
         this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
         this.dialogueBGBox.displayWidth = GAME_WIDTH;
