@@ -8,23 +8,35 @@
 
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser.js"></script>
     <script type="text/javascript" src="lib/jQuery.js"></script>
-    <script src="game/setUpDialogues.js"></script>
 
-    <script src="game/classes/Question.js"></script>
-    <script src="game/titleScene.js"></script>
-    <script src="game/characterSelectScene.js"></script>
-    <script src="game/dialogueScene.js"></script>
-
-
-    <script src="game/game.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            function loadBattleWW() {
+            function loadQ1() {
                 $.ajax({
-                    url: 'assets/dialogue/Herzblatt3.html'
+                    url: 'assets/dialogue/Q1.html'
                 }).done(function (resp) {
                     var parsedHtml = $.parseHTML(resp);
-                    $('#dialogueWW').append($(parsedHtml).children('tw-passagedata'))
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ2() {
+                $.ajax({
+                    url: 'assets/dialogue/Q2.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ3() {
+                $.ajax({
+                    url: 'assets/dialogue/Q3.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
                 }).fail(function () {
                     alert("could not load dialouge");
                 })
@@ -39,14 +51,30 @@
             //         alert("could not load dialouge");
             //     })
             // }
-            loadBattleWW();
+            loadQ1();
+            loadQ2();
+            loadQ3();
             // loadBattleFIN();
         })
     </script>
+
+    <script src="game/loadingScene.js"></script>
+
+    <script src="game/classes/Question.js"></script>
+    <script src="game/classes/Person.js"></script>
+
+    <script src="game/titleScene.js"></script>
+    <script src="game/loadingScene.js"></script>
+    <script src="game/characterSelectScene.js"></script>
+    <script src="game/dialogueScene.js"></script>
+
+
+    <script src="game/game.js"></script>
+
 </head>
 
 <body>
-<div id="dialogueWW" style="display: none;"></div>
+<div id="diags" style="display: none;"></div>
 </body>
 
 </html>

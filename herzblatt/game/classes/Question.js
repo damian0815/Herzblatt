@@ -6,7 +6,6 @@ class Answer {
     }
 
     get text() {
-        console.log('Sadly no text');
         return this._text;
     }
 
@@ -49,16 +48,18 @@ class Question {
      */
     addAnswer(answer) {
         this.answers[this.answercount++] = answer;
-
-        console.log(this.answers[this.answercount-1].text);
     }
 
     /**
      * Add a new PC Answer to the question
      * @param response
      */
-    addResponse(response) {
-        this.responses[this.responsecount++] = response;
+    addResponse(response, idx_resp) {
+        if (idx_resp < 0 || idx_resp > this.responses.length)
+            console.error("Response Index out of Bounds.");
+
+        this.responsecount++;
+        this.responses[idx_resp] = response;
     }
 
     /**
@@ -71,7 +72,7 @@ class Question {
         if (idx_ans < this.answercount)
             return this.answers[idx_ans].manner;
         else
-            console.log('Requested answer index not in bounds');
+            console.error('Requested answer index not in bounds');
     }
 
     getAnswer(idx_ans) {
@@ -79,7 +80,7 @@ class Question {
         if (idx_ans < this.answercount)
             return this.answers[idx_ans].text;
         else
-            console.log('Requested answer index not in bounds');
+            console.error('Requested answer index not in bounds');
     }
 
     getResponse(manner, fool) {

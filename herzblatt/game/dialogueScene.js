@@ -17,7 +17,9 @@ var dialogActive;
 var xoffset=10;
 var yoffset=110;
 
-var questions = new Array(20);
+//var questions = new Array(20);
+
+// Dialogue Variables
 
 var dialogueScene = new Phaser.Class({
 
@@ -40,7 +42,7 @@ var dialogueScene = new Phaser.Class({
             diaStyle =  { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: textWidth, align: "justify" };
             diaButStyle = { font: "16px Sans Serif", fill: "#000000", wordWrap: true, wordWrapWidth: textWidth, align: "justify" }
             speechLvl = 0;
-            
+
         },
 
     preload: function ()
@@ -105,55 +107,55 @@ var dialogueScene = new Phaser.Class({
 
 
     readDialogues :function() {
-        //get start text
-        var startText = $('tw-passagedata[name="Question1"]').html();
-        helpText = startText.split("\n");
-
-        // debug
-        console.log(helpText[0]);
-
-        // Add Question
-        questions[0] = new Question(helpText[0]);
-        console.log(questions[0].question);
-
-        options = helpText.length;
-
-        var pos_answers;
-
-        var k = 1, l = 0;
-        var first = true;
-        for (k=1; k < options; k++){
-            if (helpText[k].startsWith("    "))
-                helpText[k].replace("    ","");
-            if (helpText[k].startsWith("\t"))
-                helpText[k].replace("\t","");
-            if (helpText[k].startsWith("[[") && first){
-                pos_answers = [options - k];
-                pos_answers[l++] = helpText[k];
-                first = false;
-            } else if (helpText[k].startsWith("[[")) {
-                pos_answers[l++] = helpText[k];
-            }
-        }
-
-        console.log(pos_answers);
-
-        // Create Foll/Manner/Text from pos_ans
-        for (i = 0; i < pos_answers.length; ++i) {
-            var split_text = pos_answers[i].split("-&gt;");
-            var split_ans = split_text[0].split("==");
-            var ans_text = split_ans[0].replace("[[","");
-            var mf_text = split_ans[1].split("=");
-            var manner = parseInt(mf_text[0]);
-            var fool = parseInt(mf_text[1]);
-
-            console.log(ans_text);
-            console.log(manner);
-            console.log(fool);
-
-
-            questions[0].addAnswer(new Answer(ans_text, manner, fool));
-        }
+        // //get start text
+        // var startText = $('tw-passagedata[name="Question1"]').html();
+        // helpText = startText.split("\n");
+        //
+        // // debug
+        // console.log(helpText[0]);
+        //
+        // // Add Question
+        // Questions[0] = new Question(helpText[0]);
+        // console.log(Questions[0].question);
+        //
+        // options = helpText.length;
+        //
+        // var pos_answers;
+        //
+        // var k = 1, l = 0;
+        // var first = true;
+        // for (k=1; k < options; k++){
+        //     if (helpText[k].startsWith("    "))
+        //         helpText[k].replace("    ","");
+        //     if (helpText[k].startsWith("\t"))
+        //         helpText[k].replace("\t","");
+        //     if (helpText[k].startsWith("[[") && first){
+        //         pos_answers = [options - k];
+        //         pos_answers[l++] = helpText[k];
+        //         first = false;
+        //     } else if (helpText[k].startsWith("[[")) {
+        //         pos_answers[l++] = helpText[k];
+        //     }
+        // }
+        //
+        // console.log(pos_answers);
+        //
+        // // Create Foll/Manner/Text from pos_ans
+        // for (i = 0; i < pos_answers.length; ++i) {
+        //     var split_text = pos_answers[i].split("-&gt;");
+        //     var split_ans = split_text[0].split("==");
+        //     var ans_text = split_ans[0].replace("[[","");
+        //     var mf_text = split_ans[1].split("=");
+        //     var fool = parseInt(mf_text[0]);
+        //     var manner = parseInt(mf_text[1]);
+        //
+        //     console.log(ans_text);
+        //     console.log(manner);
+        //     console.log(fool);
+        //
+        //
+        //     Questions[0].addAnswer(new Answer(ans_text, manner, fool));
+        // }
 
 
 

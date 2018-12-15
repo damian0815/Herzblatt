@@ -11,7 +11,7 @@ var config = {
     width: 800,
     height: 640,
     backgroundColor: '#000000',
-    scene: [ titleScene, characterSelectScene, dialogueScene ]
+    scene: [ titleScene, characterSelectScene, dialogueScene, loadingScene ]
 };
 
 var game = new Phaser.Game(config);

@@ -31,8 +31,8 @@ var titleScene = new Phaser.Class({
             this.clearTint();
         });
          playButton.on('pointerdown', function(pointer) {
-            console.log('Clicked play, going to characterSelectScene');
-            that.scene.start('characterSelectScene');
+            console.log('Clicked play, going to loadingScene');
+            that.scene.start('loadingScene');
         });
     }
 
