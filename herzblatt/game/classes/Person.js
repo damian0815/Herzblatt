@@ -1,5 +1,5 @@
 
-var CharTypeEnum = Object.freeze({"gFgM":1, "gFbM":2, "bFgM":3, "bFbM":4});
+var CharTypeEnum = Object.freeze({"gFgM":0, "gFbM":1, "bFgM":2, "bFbM":3});
 
 class Person {
     constructor(charType, isBachelor = false) {
@@ -28,5 +28,7 @@ class Person {
     addFM (fool, manner) {
         this.fool += fool;
         this.manner += manner;
+
+        console.log("New Score: " + this.fool + "=" + this.manner);
     }
 }
