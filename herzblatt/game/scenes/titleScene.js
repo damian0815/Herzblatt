@@ -38,14 +38,9 @@ var titleScene = new Phaser.Class({
             this.clearTint();
         });
          playButton.on('pointerdown', function(pointer) {
-<<<<<<< HEAD:herzblatt/game/titleScene.js
             console.log('Clicked play, going to loadingScene');
             that.scene.start('loadingScene');
-=======
-            console.log('Clicked play, going to characterSelectScene');
-            that.scene.start('characterSelectScene');
             g_playClick(that);
->>>>>>> origin/master:herzblatt/game/scenes/titleScene.js
         });
     }
 
