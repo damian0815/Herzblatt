@@ -63,10 +63,19 @@ var candidateScene = new Phaser.Class({
             this.diagButtons[i].visible = true;
             this.diagButtonText[i].visible = true;
 
+            this.selectedDiagButton = 0;
+
             posY += 45;
         }
-
         this.dialogueText.visible = true;
+
+        var that = this;
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log("Pressed ENTER.");
+            that.onPOButtonClick(that.diagButtons[that.selectedDiagButton], that.selectedDiagButton);
+            that.goToBachelorScene();
+        });
+
     },
 
     createDialogueNPC: function() {
@@ -90,8 +99,12 @@ var candidateScene = new Phaser.Class({
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
             console.log("Pressed NEXT.");
-            DiagState = DiagStateEnum.resp;
-            that.scene.start('bachelorScene');
+            that.goToBachelorScene();
+
+        });
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log("Pressed ENTER.");
+            that.goToBachelorScene();
         });
     },
 
@@ -100,10 +113,12 @@ var candidateScene = new Phaser.Class({
 
         // TODO(martin): add player fool and manner
 
-        DiagState = DiagStateEnum.resp;
-        that.scene.start('bachelorScene');
+        this.goToBachelorScene();
     },
 
-
+    goToBachelorScene: function() {
+        DiagState = DiagStateEnum.resp;
+        this.scene.start('bachelorScene');
+    }
 
 });
