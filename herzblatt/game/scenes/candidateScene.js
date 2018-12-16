@@ -68,7 +68,7 @@ var candidateScene = new Phaser.Class({
     },
 
     getGibberishAudioFilename: function(which) {
-        return 'assets/voice/gibberish' + which + '.mp3';
+        return 'assets/voice/gibberish' + (which+1) + '.mp3';
     },
 
     create: function() {
