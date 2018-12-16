@@ -23,6 +23,8 @@ var candidateScene = new Phaser.Class({
 
         // Background
         g_loadAllBG(this);
+
+        this.isPlayingGibberish = false;
     },
 
     loadDialogueAudio: function() {
@@ -112,13 +114,18 @@ var candidateScene = new Phaser.Class({
     //     this.dialogueText.visible = true;
     // },
 
+    /*
     update: function() {
         if (Phaser.Input.Keyboard.DownDuration(this.key_adv, KEY_DOWN_DURATION)) {
             console.log("Pressed ENTER.");
             console.log("Pressed ENTER, selected diag button is: " + this.selectedDiagButton);
-            this.onPOButtonClick(this.selectedDiagButton, this);
+            if (this.selectedDiagButton == null) {
+                //this.goToBachelorScene();
+            } else {
+                this.onPOButtonClick(this.selectedDiagButton, this);
+            }
         }
-    },
+    },*/
 
     createDialogueNPC: function() {
 
@@ -165,23 +172,30 @@ var candidateScene = new Phaser.Class({
 
         // this.dialogueText.visible = true;
 
+        this.isPlayingGibberish = false;
         this.selectedDiagButton = 0;
         this.selectDiagButton(0);
 
         var that = this;
-        // this.input.keyboard.on('keydown_ENTER', function() {
-        //     console.log("Pressed ENTER, selected diag button is: " + that.selectedDiagButton);
-        //     that.onPOButtonClick(that.selectedDiagButton, that);
-        //     that.goToBachelorScene();
-        // });
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log("Pressed ENTER, selected diag button is: " + that.selectedDiagButton);
+            that.onPOButtonClick(that.selectedDiagButton, that);
+            //that.goToBachelorScene();
+        });
 
         this.input.keyboard.on('keydown_UP', function() {
+            if (that.isPlayingGibberish) {
+                return;
+            }
             var next = that.selectedDiagButton - 1;
             if (next >= 0) {
                 that.selectDiagButton(next);
             }
         });
         this.input.keyboard.on('keydown_DOWN',function() {
+            if (that.isPlayingGibberish) {
+                return;
+            }
             var next = that.selectedDiagButton + 1;
             if (next < NO_DBUTTONS) {
                 that.selectDiagButton(next);
@@ -202,17 +216,20 @@ var candidateScene = new Phaser.Class({
     },
 
     createDialoguePC: function() {
+        this.selectedDiagButton = null;
+
         posX = Math.floor(this.HudDiagBGCon.getDiagBGx() + (GAME_WIDTH - TEXT_WIDTH)/2);
         posY = Math.floor(this.HudDiagBGCon.getDiagBGy() + DIAG_BASE_TEXT_MARGIN + 20);
 
         console.log(Candidates[CandidateSequ[CandSeqNo]-1].charType);
         var char_type = Candidates[CandidateSequ[CandSeqNo]-1].charType;
-        console.log("Fool: " + Questions[QuestNo].getResponseFool(char_type) + " Manner: " + Questions[QuestNo].getResponseManner(char_type));
+        let question = Questions[QuestNo];
+        console.log("Fool: " + question.getResponseFool(char_type) + " Manner: " + question.getResponseManner(char_type));
 
         this.diagButtons = this.add.image(posX,posY,'dialogueButton',).setOrigin(0,0);
         this.diagButtons.alpha = 0.3;
-        this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
-        Candidates[CandidateSequ[CandSeqNo]-1].addFM(Questions[QuestNo].getResponseFool(char_type), Questions[QuestNo].getResponseManner(char_type));
+        this.diagButtonText = this.add.text(posX+10, posY+10, question.getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
+        Candidates[CandidateSequ[CandSeqNo]-1].addFM(question.getResponseFool(char_type), question.getResponseManner(char_type));
 
 
         // add buttons
@@ -242,23 +259,27 @@ var candidateScene = new Phaser.Class({
     },
 
     onPOButtonClick: function(button, that) {
+        if (this.isPlayingGibberish) {
+            return;
+        }
         var idx_ans = this.diagButtonCors[button];
         console.log('Button clicked ' + button + ' at idx ' + idx_ans);
 
         // TODO(martin): add player fool and manner
         console.log("Fool: " + Questions[QuestNo].getAnswerFool(idx_ans) + " Manner: " + Questions[QuestNo].getAnswerManner(idx_ans));
 
-        // don't play gibberish until we figure out how to pause
-        //var soundKey = this.getRandomGibberishAudioKey();
-        //var sound = this.sound.add(soundKey, {volume: 1});
-        //sound.play();
+        // play random gibberish
+        var soundKey = this.getRandomGibberishAudioKey();
+        var sound = this.sound.add(soundKey, {volume: 1});
+        sound.play();
+        this.isPlayingGibberish = true;
 
         Questions[QuestNo].setAnswerSector(idx_ans);
         Player.addFM(Questions[QuestNo].getAnswerFool(idx_ans), Questions[QuestNo].getAnswerManner(idx_ans));
 
         console.log("AnsSector " + Questions[QuestNo].ansSector);
 
-        this.goToBachelorScene();
+        this.time.delayedCall(4000, this.goToBachelorScene, [], this);
     },
 
     goToBachelorScene: function() {
