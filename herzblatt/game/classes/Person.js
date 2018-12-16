@@ -31,4 +31,9 @@ class Person {
 
         console.log("New Score: " + this.fool + "=" + this.manner);
     }
+
+    getFM() {
+        console.log("Final Score: " + this.fool + "=" +this.manner);
+        return [this.fool, this.manner];
+    }
 }
