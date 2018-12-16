@@ -6,6 +6,8 @@ var NO_CANDIDATES = 3;
 var NO_DBUTTONS = 3;
 var NO_TOTQUEST = 2;
 
+var KEY_DOWN_DURATION = 250; // in ms
+
 var DEBUG = true;
 
 // ENUMS
@@ -151,6 +153,24 @@ var loadingScene = new Phaser.Class({
             console.log('Clicked play, going to bachelorScene');
             this.scene.start('characterSelectScene');
         // });
+// =======
+//         var playButton = this.add.sprite(400, 500, 'play').setInteractive();
+//         var that = this;
+//         playButton.on('pointerover', function(pointer) {
+//             this.setTint(0xffaaaa);
+//         });
+//         playButton.on('pointerout', function(pointer) {
+//             this.clearTint();
+//         });
+//         playButton.on('pointerdown', function(pointer) {
+//             console.log('Clicked play, going to characterSelectScene');
+//             that.scene.start('characterSelectScene');
+//         });
+//         this.input.keyboard.on('keydown_ENTER', function() {
+//             console.log('pressed Enter, going to characterSelectScene');
+//             that.scene.start('characterSelectScene');
+//         });
+// >>>>>>> master
     },
 
     /**

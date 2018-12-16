@@ -2,6 +2,8 @@ var ANOUNCER_TEXTS = 4;
 var ANOUNCER_VAR_SIZE = 2;
 var ANOUNCER_VAR_TEXTS = 4;
 
+// TODO(martin: keyboard support for this scene
+
 var questionIntroScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -164,5 +166,11 @@ var questionIntroScene = new Phaser.Class({
 
 
     },
+// =======
+//         this.input.once('pointerdown', function () {
+//             this.scene.start('bachelorScene');
+//         }, this);
+//     }
+// >>>>>>> master
 
 });

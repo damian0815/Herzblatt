@@ -38,6 +38,12 @@ var titleScene = new Phaser.Class({
             that.scene.start('loadingScene');
             g_playClick(that);
         });
+
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log('Clicked play, going to loadingScene');
+            that.scene.start('loadingScene');
+            g_playClick(that);
+        });
     }
 
 });

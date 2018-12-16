@@ -1,6 +1,5 @@
 var NO_REACTIONS = 5;
 
-
 class ReactionOverlayComponent {
 
     constructor(scene) {
@@ -76,6 +75,7 @@ class ReactionOverlayComponent {
     setRandomPosition(reaction) {
         reaction.x = g_getFRandom(101) + 200; //Phaser.Random.Between(200, 300);
         reaction.y = g_getFRandom(101) + 200; //Phaser.Random.Between(200, 300);
+
     }
 
     hideAfterDelay(reaction) {

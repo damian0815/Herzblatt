@@ -28,6 +28,8 @@ var bachelorScene = new Phaser.Class({
     },
 
     create: function() {
+        this.key_adv = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
         // Load Background
         g_addAllBG(this);
 
@@ -63,6 +65,26 @@ var bachelorScene = new Phaser.Class({
             // this.dialogueText.setText(Questions[QuestNo].question);
             this.HudDiagBGCon.setDiagText(Questions[QuestNo].question);
         else if (DiagState === DiagStateEnum.resp ) {
+// =======
+//         this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0, 1);
+//         this.dialogueBGBox.displayWidth = GAME_WIDTH;
+//         this.dialogueBGBox.displayHeight = 40 + 2 * TEXT_Y_MARGIN;
+//         this.dialogueBGBox.visible = true;
+//
+//         // Create Dialogue Text
+//         this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth) / 2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, "", DiagTextSyle);
+//         this.dialogueText.setOrigin(0, 0);
+//         this.dialogueText.visible = false;
+//
+//         // TODO(martin): add next button here
+//         this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0, 0).setInteractive();
+//         this.dialogueBGBox.visible = true;
+//
+//         // Load Texts depending on DiagState
+//         if (DiagState === DiagStateEnum.quest)
+//             this.dialogueText.setText(Questions[QuestNo].question);
+//         else if (DiagState === DiagStateEnum.resp) {
+// >>>>>>> master
 
             // Let Bachelor react
             var rand_react = 0;// use random reaction
@@ -91,21 +113,60 @@ var bachelorScene = new Phaser.Class({
 
         // Set Button Functionality
         var that = this;
-        this.nextButton.on('pointerdown', function(pointer) {
+        this.nextButton.on('pointerdown', function (pointer) {
             console.log("Pressed NEXT.");
 
-            if (CandSeqNo >= CandidateSequ.length){
-                if (NoAskedQuestions >= NO_TOTQUEST) {
+// <<<<<<< HEAD
+//             if (CandSeqNo >= CandidateSequ.length){
+//                 if (NoAskedQuestions >= NO_TOTQUEST) {
+//                     //TODO(martin) endgamescene;
+//                     console.log('END Dialogue');
+//                     that.scene.start('revealDecisionScene');
+//                 }
+//                 else
+//                     that.loadNextQuestion();
+//             }
+//             else
+//                 that.scene.start('candidateScene');
+// =======
+            that.nextButtonPressed();
+        });
+//
+//         this.input.keyboard.on('keyjustdown_ENTER', function() {
+//             console.log("Pressed ENTER.");
+//             that.nextButtonPressed();
+// // >>>>>>> master
+//         });
+
+        // this.input.keyboard.justDown('key_ENTER', function() {
+        //     console.log("Pressed ENTER2.");
+            // that.nextButtonPressed();
+// >>>>>>> master
+//         });
+
+    },
+
+    update: function (){
+        // console.log(Phaser.Input.Keyboard.DownDuration(this.key_adv, 15));
+        // if(Phaser.Input.Keyboard.JustDown(this.key_adv)){
+        if (Phaser.Input.Keyboard.DownDuration(this.key_adv, KEY_DOWN_DURATION)) {
+            console.log("Pressed ENTER.");
+            this.nextButtonPressed();
+        }
+    },
+
+    nextButtonPressed: function() {
+        if (CandSeqNo >= CandidateSequ.length){
+            if (NoAskedQuestions >= NO_TOTQUEST) {
                     //TODO(martin) endgamescene;
                     console.log('END Dialogue');
-                    that.scene.start('revealDecisionScene');
-                }
-                else
-                    that.loadNextQuestion();
+                    this.scene.start('revealDecisionScene');
             }
             else
-                that.scene.start('candidateScene');
-        });
+                this.loadNextQuestion();
+        }
+        else
+            this.scene.start('candidateScene');
     },
 
     loadNextQuestion: function() {

@@ -24,6 +24,7 @@ var candidateScene = new Phaser.Class({
     },
 
     create: function() {
+        this.key_adv = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         g_addAllBG(this);
 
         // this.createDialogeMain();
@@ -58,6 +59,15 @@ var candidateScene = new Phaser.Class({
     //     this.dialogueText.setOrigin(0,0);
     //     this.dialogueText.visible = true;
     // },
+
+    update: function() {
+        if (Phaser.Input.Keyboard.DownDuration(this.key_adv, KEY_DOWN_DURATION)) {
+            console.log("Pressed ENTER.");
+            console.log("Pressed ENTER, selected diag button is: " + this.selectedDiagButton);
+            this.onPOButtonClick(this.selectedDiagButton, this);
+            this.goToBachelorScene();
+        }
+    },
 
     createDialogueNPC: function() {
 
@@ -98,7 +108,46 @@ var candidateScene = new Phaser.Class({
             posY += 45;
         }
 
+// <<<<<<< HEAD
+//         // this.dialogueText.visible = true;
+// =======
+
         // this.dialogueText.visible = true;
+
+        this.selectedDiagButton = 0;
+        this.selectDiagButton(0);
+
+        var that = this;
+        // this.input.keyboard.on('keydown_ENTER', function() {
+        //     console.log("Pressed ENTER, selected diag button is: " + that.selectedDiagButton);
+        //     that.onPOButtonClick(that.selectedDiagButton, that);
+        //     that.goToBachelorScene();
+        // });
+
+        this.input.keyboard.on('keydown_UP', function() {
+            var next = that.selectedDiagButton - 1;
+            if (next >= 0) {
+                that.selectDiagButton(next);
+            }
+        });
+        this.input.keyboard.on('keydown_DOWN',function() {
+            var next = that.selectedDiagButton + 1;
+            if (next < NO_DBUTTONS) {
+                that.selectDiagButton(next);
+            }
+        });
+
+
+
+    },
+
+    selectDiagButton: function(buttonIndex) {
+
+        this.diagButtons[this.selectedDiagButton].setTint(0xffffff);
+        this.selectedDiagButton = buttonIndex;
+        this.diagButtons[this.selectedDiagButton].setTint(0xffaaaa);
+
+// >>>>>>> master
     },
 
     createDialoguePC: function() {
@@ -107,7 +156,6 @@ var candidateScene = new Phaser.Class({
 
         console.log(Candidates[CandidateSequ[CandSeqNo]-1].charType);
         var char_type = Candidates[CandidateSequ[CandSeqNo]-1].charType;
-        console.log(char_type);
         console.log("Fool: " + Questions[QuestNo].getResponseFool(char_type) + " Manner: " + Questions[QuestNo].getResponseManner(char_type));
 
         this.diagButtons = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0);
@@ -125,8 +173,12 @@ var candidateScene = new Phaser.Class({
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
             console.log("Pressed NEXT.");
-            DiagState = DiagStateEnum.resp;
-            that.scene.start('bachelorScene');
+            that.goToBachelorScene();
+
+        });
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log("Pressed ENTER.");
+            that.goToBachelorScene();
         });
     },
 
@@ -142,10 +194,12 @@ var candidateScene = new Phaser.Class({
 
         console.log("AnsSector " + Questions[QuestNo].ansSector);
 
-        DiagState = DiagStateEnum.resp;
-        that.scene.start('bachelorScene');
+        this.goToBachelorScene();
     },
 
-
+    goToBachelorScene: function() {
+        DiagState = DiagStateEnum.resp;
+        this.scene.start('bachelorScene');
+    }
 
 });
