@@ -23,6 +23,8 @@ var titleScene = new Phaser.Class({
     {
         this.add.image(0, 0, 'tbg').setOrigin(0,0);
 
+        var music = this.sound.add('titleMusic', { loop:true, volume:0.3 });
+        music.play();
 
         this.playButton = this.add.sprite(850, 500, 'startButt').setInteractive();
         var that = this;
@@ -36,12 +38,14 @@ var titleScene = new Phaser.Class({
         this.playButton.on('pointerdown', function(pointer) {
             console.log('Clicked play, going to loadingScene');
             that.scene.start('loadingScene');
+            music.stop();
             g_playClick(that);
         });
 
         this.input.keyboard.on('keydown_ENTER', function() {
             console.log('Clicked play, going to loadingScene');
             that.scene.start('loadingScene');
+            music.stop();
             g_playClick(that);
         });
     }
