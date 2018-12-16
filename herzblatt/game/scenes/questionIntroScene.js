@@ -38,8 +38,7 @@ var questionIntroScene = new Phaser.Class({
         this.introAudioCon.preload()
     },
 
-    create: function ()
-    {
+    create: function () {
         // Create Background
         g_addAllBG(this);
 
@@ -58,15 +57,25 @@ var questionIntroScene = new Phaser.Class({
         //     this.scene.start('bachelorScene');
         // }, this);
         var that = this;
-        this.nextButton.on('pointerdown', function(pointer) {
+        this.nextButton.on('pointerdown', function (pointer) {
             console.log("Pressed NEXT.");
 
-            if (++that.anouncer_lvl >= ANOUNCER_TEXTS){
-                that.scene.start('bachelorScene');
-            } else {
-                that.audio_played = false;
-            }
+            that.goToNext();
         });
+        this.input.keyboard.on('keydown_ENTER', function() {
+            console.log("pressed ENTER.");
+            that.goToNext();
+        });
+
+    },
+
+    goToNext: function() {
+        if (++this.anouncer_lvl >= ANOUNCER_TEXTS){
+            this.scene.start('bachelorScene');
+        } else {
+            this.audio_played = false;
+        }
+
     },
 
     update: function() {
