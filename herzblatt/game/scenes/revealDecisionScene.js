@@ -57,12 +57,10 @@ var revealDecisionScene = new Phaser.Class({
         // this.add.sprite(640, 360, 'rdbg');
         // this.add.text(100, 100, 'revealDecisionBG.jpg\n\nBig dramatic reveal of the decision...');
         g_loadClick(this);
-        console.log(this.nextButton.visible);
         var timer = this.time.delayedCall(5000, this.onAllowNext(), [], this);
+        // TODO(martin) Delay not working
         console.log(timer.delay);
-
-        this.nextButton.visible = false;
-        this.nextButtonText.visible = false;
+        console.log(timer.getElapsed());
     },
 
     update: function() {
@@ -76,6 +74,21 @@ var revealDecisionScene = new Phaser.Class({
 
     revealDecision: function() {
         this.HudDiagBGCon.setDiagText("And I choose ...\n" + "Candidate " + (this.winner + 1));
+        this.nextButton.visible = true;
+        this.nextButtonText.visible = true;
+
+        var that = this;
+        this.nextButton.on('pointerdown', function(pointer) {
+            console.log("Pressed NEXT.");
+
+            var nextScene = '';
+            if (that.winner === g_gameState.characterIndex)
+                nextScene = 'revealBachelorScene';
+            else
+                nextScene = 'youLostScene';
+
+            that.scene.start(nextScene);
+        });
     },
 
     // onExplodeTimer: function() {
