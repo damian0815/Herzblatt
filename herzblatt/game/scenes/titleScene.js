@@ -35,13 +35,14 @@ var titleScene = new Phaser.Class({
         });
         this.playButton.on('pointerdown', function(pointer) {
             console.log('Clicked play, going to loadingScene');
-            that.scene.start('loadingScene');
+            that.scene.start('characterSelectScene');
             g_playClick(that);
         });
 
         this.input.keyboard.on('keydown_ENTER', function() {
             console.log('Clicked play, going to loadingScene');
-            that.scene.start('loadingScene');
+            // that.scene.start('loadingScene');
+            that.scene.start('characterSelectScene');
             g_playClick(that);
         });
     }

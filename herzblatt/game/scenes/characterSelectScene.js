@@ -142,6 +142,7 @@ var characterSelectScene = new Phaser.Class({
         var currentIndex = scene.selectedCharacterIndex;
         g_gameState.characterIndex = currentIndex;
         g_playClick(scene);
-        scene.scene.start('questionIntroScene');
+        // scene.scene.start('questionIntroScene');
+        scene.scene.start('loadingScene');
     }
 });
