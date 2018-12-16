@@ -6,6 +6,9 @@ var revealDecisionScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
+    kXPositions: [ 600, 800, 1000 ],
+    kYPositions: [ 590 ],
+
     initialize:
 
         function revealDecisionScene ()
@@ -29,6 +32,10 @@ var revealDecisionScene = new Phaser.Class({
         this.charDisplayCon.preload();
 
         this.load.audio('drumroll', 'assets/sound/drumroll.mp3');
+
+        this.load.image('smallFlame', 'assets/pics/flame/SmallFlame2.png');
+        this.load.image('mediumFlame', 'assets/pics/flame/MediumFlame2.png');
+        this.load.image('largeFlame', 'assets/pics/flame/LargeFlame.png');
     },
 
     create: function ()
@@ -36,12 +43,34 @@ var revealDecisionScene = new Phaser.Class({
         // Load Background
         g_addAllBG(this);
 
-
-
         // Create Diag
         this.HudDiagBGCon.createBig();
         this.nextButtonCon.create();
         this.charDisplayCon.create(true, true, true, true);
+
+        this.flames = new Array(3);
+        this.flames[0] = new Array(3);
+        this.flames[1] = new Array(3);
+        this.flames[2] = new Array(3);
+        this.flames[0][0] = this.add.image(this.kXPositions[0], this.kYPositions[0], 'smallFlame').setOrigin(0.5,1);
+        this.flames[0][1] = this.add.image(this.kXPositions[1], this.kYPositions[0], 'smallFlame').setOrigin(0.5,1);
+        this.flames[0][2] = this.add.image(this.kXPositions[2], this.kYPositions[0], 'smallFlame').setOrigin(0.5,1);
+        this.flames[1][0] = this.add.image(this.kXPositions[0], this.kYPositions[0], 'mediumFlame').setOrigin(0.5,1);
+        this.flames[1][1] = this.add.image(this.kXPositions[1], this.kYPositions[0], 'mediumFlame').setOrigin(0.5,1);
+        this.flames[1][2] = this.add.image(this.kXPositions[2], this.kYPositions[0], 'mediumFlame').setOrigin(0.5,1);
+        this.flames[2][0] = this.add.image(this.kXPositions[0], this.kYPositions[0], 'largeFlame').setOrigin(0.5,1);
+        this.flames[2][1] = this.add.image(this.kXPositions[1], this.kYPositions[0], 'largeFlame').setOrigin(0.5,1);
+        this.flames[2][2] = this.add.image(this.kXPositions[2], this.kYPositions[0], 'largeFlame').setOrigin(0.5,1);
+        this.flames[0][0].visible = false;
+        this.flames[0][1].visible = false;
+        this.flames[0][2].visible = false;
+        this.flames[1][0].visible = false;
+        this.flames[1][1].visible = false;
+        this.flames[1][2].visible = false;
+        this.flames[2][0].visible = false;
+        this.flames[2][1].visible = false;
+        this.flames[2][2].visible = false;
+
 
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
@@ -50,7 +79,7 @@ var revealDecisionScene = new Phaser.Class({
             that.nextButton.visible = false;
             that.nextButtonText.visible = false;
             that.HudDiagBGCon.setDiagText("And I choose ...");
-            timedEvent_diag = that.time.addEvent( {delay: 5000, repeat: 0} );
+            that.timedEvent_diag = that.time.addEvent( {delay: 7000, repeat: 0} );
             that.said_next = false;
 
             if (!this.drumrollSound) {
@@ -74,20 +103,47 @@ var revealDecisionScene = new Phaser.Class({
         // this.add.sprite(640, 360, 'rdbg');
         // this.add.text(100, 100, 'revealDecisionBG.jpg\n\nBig dramatic reveal of the decision...');
         g_loadClick(this);
-        timedEvent_button = this.time.addEvent( {delay: 5000, repeat: 0} );
-        // TODO(martin) Delay not working
+        this.timedEvent_button = this.time.addEvent( {delay: 5000, repeat: 0} );
+        this.bg_timer = this.time.addEvent( {delay: 15000, repeat: 0} );
     },
 
     update: function() {
-        if (!this.allowed_next && timedEvent_button.getProgress() === 1.0) {
+        if (!this.allowed_next && this.timedEvent_button.getProgress() === 1.0) {
             this.onAllowNext();
             this.allowed_next = true;
         }
 
-        if (!this.said_next && timedEvent_diag.getProgress() === 1.0) {
+        if (!this.said_next && this.timedEvent_diag.getProgress() === 1.0) {
             this.revealDecision();
             this.said_next = true;
         }
+
+        if (this.bg_timer.getElapsed() > 9000 && this.bg_timer.getProgress() !== 1.0) {
+            if (this.bg_timer.getElapsed() < 11000)
+                this.displayFlames(0);
+            else if (this.bg_timer.getElapsed() < 13000)
+                this.displayFlames(1);
+            else if (this.bg_timer.getElapsed() < 15000)
+                this.displayFlames(2);
+        }
+    },
+
+    displayFlames: function(idx) {
+        this.flames[0][0].visible = false;
+        this.flames[0][1].visible = false;
+        this.flames[0][2].visible = false;
+        this.flames[1][0].visible = false;
+        this.flames[1][1].visible = false;
+        this.flames[1][2].visible = false;
+        this.flames[2][0].visible = false;
+        this.flames[2][1].visible = false;
+        this.flames[2][2].visible = false;
+
+        this.flames[idx][0].visible = true;
+        this.flames[idx][1].visible = true;
+        this.flames[idx][2].visible = true;
+
+        this.flames[idx][this.winner].visible = false;
     },
 
     onAllowNext: function() {

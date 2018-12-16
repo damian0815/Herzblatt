@@ -151,24 +151,6 @@ var loadingScene = new Phaser.Class({
             // this.scene.start('characterSelectScene');
         this.scene.start('questionIntroScene');
         // });
-// =======
-//         var playButton = this.add.sprite(400, 500, 'play').setInteractive();
-//         var that = this;
-//         playButton.on('pointerover', function(pointer) {
-//             this.setTint(0xffaaaa);
-//         });
-//         playButton.on('pointerout', function(pointer) {
-//             this.clearTint();
-//         });
-//         playButton.on('pointerdown', function(pointer) {
-//             console.log('Clicked play, going to characterSelectScene');
-//             that.scene.start('characterSelectScene');
-//         });
-//         this.input.keyboard.on('keydown_ENTER', function() {
-//             console.log('pressed Enter, going to characterSelectScene');
-//             that.scene.start('characterSelectScene');
-//         });
-// >>>>>>> master
     },
 
     createCandidates: function() {

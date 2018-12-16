@@ -20,7 +20,7 @@ var revealBachelorScene = new Phaser.Class({
 
         g_loadTitleMusic(this);
 
-        this.load.image('rbbg', 'assets/pics/revealBachelorBG.jpg');
+        // this.load.image('rbbg', 'assets/pics/revealBachelorBG.jpg');
         this.charDisplayCon.preload();
     },
 
