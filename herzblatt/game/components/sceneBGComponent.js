@@ -56,4 +56,8 @@ class CharDisplayComponent {
     setCurtainVisibility(value = true) {
         this.curtain.visible = value;
     }
+
+    moveCurtain(dy) {
+        this.curtain.y -= Math.ceil(dy);
+    }
 }

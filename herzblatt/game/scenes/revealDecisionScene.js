@@ -1,3 +1,7 @@
+
+var timedEvent_button;
+var timedEvent_diag;
+
 var revealDecisionScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -11,6 +15,9 @@ var revealDecisionScene = new Phaser.Class({
             this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
             this.charDisplayCon = new CharDisplayComponent(this);
+
+            this.allowed_next = false;
+            this.said_next = true;
         },
 
     preload: function ()
@@ -39,7 +46,8 @@ var revealDecisionScene = new Phaser.Class({
             that.nextButton.visible = false;
             that.nextButtonText.visible = false;
             that.HudDiagBGCon.setDiagText("And I choose ...");
-            that.time.delayedCall(2000, that.revealDecision(), [], this);
+            timedEvent_diag = that.time.addEvent( {delay: 2000, repeat: 0} );
+            that.said_next = false;
         });
 
         this.nextButton.visible = false;
@@ -57,17 +65,23 @@ var revealDecisionScene = new Phaser.Class({
         // this.add.sprite(640, 360, 'rdbg');
         // this.add.text(100, 100, 'revealDecisionBG.jpg\n\nBig dramatic reveal of the decision...');
         g_loadClick(this);
-        var timer = this.time.delayedCall(5000, this.onAllowNext(), [], this);
+        timedEvent_button = this.time.addEvent( {delay: 5000, repeat: 0} );
         // TODO(martin) Delay not working
-        console.log(timer.delay);
-        console.log(timer.getElapsed());
     },
 
     update: function() {
+        if (!this.allowed_next && timedEvent_button.getProgress() === 1.0) {
+            this.onAllowNext();
+            this.allowed_next = true;
+        }
+
+        if (!this.said_next && timedEvent_diag.getProgress() === 1.0) {
+            this.revealDecision();
+            this.said_next = true;
+        }
     },
 
     onAllowNext: function() {
-        console.log("Next allowed");
         this.nextButton.visible = true;
         this.nextButtonText.visible = true;
     },
@@ -87,7 +101,9 @@ var revealDecisionScene = new Phaser.Class({
             else
                 nextScene = 'youLostScene';
 
-            that.scene.start(nextScene);
+            // TODO(martin): change back
+            //that.scene.start(nextScene);
+            that.scene.start('revealBachelorScene');
         });
     },
 
