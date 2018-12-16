@@ -11,13 +11,12 @@ var youWonScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('ywbg', 'assets/pics/youWonBG.jpg');
+        this.load.image('ywbg', 'assets/pics/bg/win.jpg');
     },
 
     create: function ()
     {
-        this.add.sprite(640, 360, 'ywbg');
-        this.add.text(100, 100, 'youWonBG.jpg\n\nYou won. click to continue.');
+        this.add.sprite(0, 0, 'ywbg').setOrigin(0,0);
 
         this.input.once('pointerdown', function () {
             this.scene.start('resetScene');

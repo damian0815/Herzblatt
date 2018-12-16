@@ -43,8 +43,8 @@ var revealBachelorScene = new Phaser.Class({
             repeat: false
         });
 
-        this.add.sprite(640, 360, 'rbbg');
-        this.add.text(100, 100, 'revealBachelorBG.jpg\n\nBachelor is revealed. click to continue.');
+        // this.add.sprite(640, 360, 'rbbg');
+        // this.add.text(100, 100, 'revealBachelorBG.jpg\n\nBachelor is revealed. click to continue.');
 
         g_playTitleMusic(this);
         this.input.once('pointerdown', function () {

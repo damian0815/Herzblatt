@@ -11,13 +11,12 @@ var youLostScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('ylbg', 'assets/pics/youLostBG.jpg');
+        this.load.image('ylbg', 'assets/pics/bg/gameOver.jpg');
     },
 
     create: function ()
     {
-        this.add.sprite(640, 360, 'ylbg');
-        this.add.text(100, 100, 'youLostBG.jpg\n\nYou lost. click to continue.');
+        this.add.sprite(0, 0, 'ylbg').setOrigin(0,0);
 
         this.input.once('pointerdown', function () {
             this.scene.start('resetScene');

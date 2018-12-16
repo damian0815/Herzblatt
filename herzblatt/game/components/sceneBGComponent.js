@@ -36,6 +36,7 @@ class CharDisplayComponent {
 
     create(visA = false, visB = false, visC = false, visCur = false) {
         this.bach = this.scene.add.image(0,0,'MrBlobby').setOrigin(0,0);
+        this.bach.setScale(0.8);
         this.canA = this.scene.add.image(0,0,'canA').setOrigin(0,0);
         this.canB = this.scene.add.image(0,0,'canB').setOrigin(0,0);
         this.canC = this.scene.add.image(0,0,'canC').setOrigin(0,0);
