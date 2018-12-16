@@ -1,10 +1,10 @@
 
 
 // DEFINE VARIABLES AND CONSTANTS
-var NO_QUESTIONS = 6;
+var NO_QUESTIONS = 3;
 var NO_CANDIDATES = 3;
 var NO_DBUTTONS = 3;
-var NO_TOTQUEST = 3;
+var NO_TOTQUEST = 2;
 
 var DEBUG = true;
 
@@ -59,10 +59,18 @@ var loadingScene = new Phaser.Class({
             }
 
             // Load Questions
-            for (let i = 0; i < NO_QUESTIONS; i++) {
+            for (var z = 0; z < NO_QUESTIONS; z++) {
                 // Get Start Text
-                var input_text =  $('tw-passagedata[name="Q' + (i+1) + '"]').html();
-                var res_text =  $('tw-passagedata[name="A' + (i+1) + '"]').html();
+                console.log("Reading Diag " + z);
+                var input_text =  $('tw-passagedata[name="Q' + (z+1) + '"]').html();
+                var res_text =  $('tw-passagedata[name="A' + (z+1) + '"]').html();
+
+                // while (typeof input_text == 'undefined')
+                //     input_text =  $('tw-passagedata[name="Q' + (i+1) + '"]').html();
+                //
+                // while (typeof res_text == 'undefined')
+                //     res_text =  $('tw-passagedata[name="A' + (i+1) + '"]').html();
+
                 var help_text1 = input_text.split("\n");
                 var help_text2 = res_text.split("\n");
 
@@ -73,10 +81,10 @@ var loadingScene = new Phaser.Class({
                 }
 
                 // Add Question
-                Questions[i] = new Question(help_text1[0]);
-                AskedQuestions[i] = false;
-                this.decomposeDialogue(help_text1, i);
-                this.decomposeResponses(help_text2, i);
+                Questions[z] = new Question(help_text1[0]);
+                AskedQuestions[z] = false;
+                this.decomposeDialogue(help_text1, z);
+                this.decomposeResponses(help_text2, z);
 
             }
 
@@ -189,10 +197,13 @@ var loadingScene = new Phaser.Class({
         // Get Values of Answer line
         for (var j = 0; j < diag_text.length; ++j) {
             var split_text = diag_text[j].split("-&gt;");
-            var resp = split_text[1];
-            var r_idx = parseInt(split_text[0].replace("==",""));
+            var r_idx = parseInt(split_text[0]);
+            var res_text = split_text[1].split("==");
+            var mf_text = res_text[1].split("=");
+            var fool = parseInt(mf_text[0]);
+            var manner = parseInt(mf_text[1]);
 
-            Questions[idx_q].addResponse(resp, r_idx-1);
+            Questions[idx_q].addResponse(new Answer(res_text[0],manner,fool), r_idx-1);
         }
     },
 

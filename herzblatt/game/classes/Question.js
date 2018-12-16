@@ -52,7 +52,7 @@ class Question {
 
     /**
      * Add a new Player Answer to the question
-     * @param answer_text
+     * @param answer
      */
     addAnswer(answer) {
         this.answers[this.answercount++] = answer;
@@ -105,7 +105,23 @@ class Question {
             console.error("Response Index out of Bounds.");
 
         this.ansSector = idx_resp;
-        return this.responses[idx_resp];
+        return this.responses[idx_resp].text;
+    }
+
+    getResponseManner(idx_ans) {
+        // check if idx is in bounds
+        if (idx_ans < this.responsecount)
+            return this.responses[idx_ans].manner;
+        else
+            console.error('Requested answer index not in bounds');
+    }
+
+    getResponseFool(idx_ans) {
+        // check if idx is in bounds
+        if (idx_ans < this.responsecount)
+            return this.responses[idx_ans].fool;
+        else
+            console.error('Requested answer index not in bounds');
     }
 
     get question() {

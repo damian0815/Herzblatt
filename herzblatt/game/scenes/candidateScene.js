@@ -11,9 +11,10 @@ var candidateScene = new Phaser.Class({
         },
 
     preload: function() {
-        this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
+        // this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
         this.load.image('dialogueButton', 'assets/buttons/dialogueButton.png');
 
+        this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
 
         // Background
@@ -102,10 +103,13 @@ var candidateScene = new Phaser.Class({
         posY = Math.floor(this.HudDiagBGCon.getDiagBGy() + DIAG_BASE_TEXT_MARGIN + 20);
 
         console.log(Candidates[CandidateSequ[CandSeqNo]-1].charType);
+        var char_type = Candidates[CandidateSequ[CandSeqNo]-1].charType;
+        console.log("Fool: " + Questions[QuestNo].getResponseFool(char_type) + " Manner: " + Questions[QuestNo].getResponseManner(char_type));
 
         this.diagButtons = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0);
         this.diagButtons.alpha = 0.3;
-        this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(Candidates[CandidateSequ[CandSeqNo]-1].charType), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
+        this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
+        Candidates[CandidateSequ[CandSeqNo]-1].addFM(Questions[QuestNo].getResponseFool(char_type), Questions[QuestNo].getResponseManner(char_type));
 
         // add buttons
         // this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();

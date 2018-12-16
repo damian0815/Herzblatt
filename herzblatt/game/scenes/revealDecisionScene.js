@@ -7,11 +7,16 @@ var revealDecisionScene = new Phaser.Class({
         function revealDecisionScene ()
         {
             Phaser.Scene.call(this, { key: 'revealDecisionScene' });
+
+            this.HudDiagBGCon = new HudDiagBase(this);
+            this.nextButtonCon = new NextButtonComponent(this);
         },
 
     preload: function ()
     {
         this.load.image('rdbg', 'assets/pics/revealDecisionBG.jpg');
+
+        this.nextButtonCon.preload();
     },
 
     create: function ()
