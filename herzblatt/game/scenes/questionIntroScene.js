@@ -159,11 +159,8 @@ var questionIntroScene = new Phaser.Class({
 
     genIntroText: function () {
         this.rand_player = g_getFRandom(ANOUNCER_VAR_TEXTS);
-        this.rand_c1 = g_getFRandom(ANOUNCER_VAR_TEXTS);
-        this.rand_c2 = g_getFRandom(ANOUNCER_VAR_TEXTS);
-        while (this.rand_c1 === this.rand_c2)
-            this.rand_c2 = g_getFRandom(ANOUNCER_VAR_TEXTS);
-
+        this.rand_c1 = Candidates[0].charType;
+        this.rand_c2 = Candidates[1].charType;
 
     },
 // =======

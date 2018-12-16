@@ -20,7 +20,7 @@ var youWonScene = new Phaser.Class({
         this.add.text(100, 100, 'youWonBG.jpg\n\nYou won. click to continue.');
 
         this.input.once('pointerdown', function () {
-            this.scene.start('titleScene');
+            this.scene.start('resetScene');
         }, this);
     }
 

@@ -20,7 +20,7 @@ var youLostScene = new Phaser.Class({
         this.add.text(100, 100, 'youLostBG.jpg\n\nYou lost. click to continue.');
 
         this.input.once('pointerdown', function () {
-            this.scene.start('titleScene');
+            this.scene.start('resetScene');
         }, this);
     }
 

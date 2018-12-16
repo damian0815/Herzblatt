@@ -147,9 +147,9 @@ var loadingScene = new Phaser.Class({
         //     this.clearTint();
         // });
         // playButton.on('pointerdown', function(pointer) {
-            console.log('Clicked play, going to bachelorScene');
+            console.log('Clicked play, going to questionIntroScene');
             // this.scene.start('characterSelectScene');
-        this.scene.start('bachelorScene');
+        this.scene.start('questionIntroScene');
         // });
 // =======
 //         var playButton = this.add.sprite(400, 500, 'play').setInteractive();
