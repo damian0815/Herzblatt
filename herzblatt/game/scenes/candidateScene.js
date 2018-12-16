@@ -19,8 +19,54 @@ var candidateScene = new Phaser.Class({
         this.nextButtonCon.preload();
         this.charDisplayCon.preload();
 
+        this.loadDialogueAudio();
+
         // Background
         g_loadAllBG(this);
+    },
+
+    loadDialogueAudio: function() {
+        if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {
+        } else {
+            var candidate = Candidates[CandidateSequ[CandSeqNo]-1];
+            var characterNo = candidate.charType;
+            this.loadSingleDialogueAudio(QuestNo, characterNo);
+        }
+
+        for (var i=0; i<3; i++) {
+            var key = this.getGibberishAudioKey(i);
+            var filename = this.getGibberishAudioFilename(i);
+            this.load.audio(key, [filename]);
+        }
+    },
+
+    loadSingleDialogueAudio: function(questionNo, characterNo) {
+        console.log('loading audio for answers for question ' + questionNo + ' character number ' + characterNo);
+        var key = this.generateAudioKey(questionNo, characterNo);
+        var file = this.generateAudioFilename(questionNo, characterNo);
+        console.log(key + ' -> ' + file);
+        this.load.audio(key, [file]);
+    },
+
+    generateAudioKey: function(questionNo, characterNo) {
+        return 'audio_a' + questionNo.toString() + '_' + characterNo;
+    },
+
+    generateAudioFilename: function(questionNo, characterNo) {
+        // 'A1_Character 1_custom winter jam.mp3'
+        return 'assets/voice/A' + (questionNo+1) + '_Character ' + (characterNo+1) + "_custom winter jam.wav.mp3";
+    },
+
+    getRandomGibberishAudioKey: function() {
+        return this.getGibberishAudioKey(Phaser.Math.Between(0,2));
+    },
+
+    getGibberishAudioKey: function(which) {
+        return 'gibberish_' + which;
+    },
+
+    getGibberishAudioFilename: function(which) {
+        return 'assets/voice/gibberish' + which + '.mp3';
     },
 
     create: function() {
@@ -71,7 +117,6 @@ var candidateScene = new Phaser.Class({
             console.log("Pressed ENTER.");
             console.log("Pressed ENTER, selected diag button is: " + this.selectedDiagButton);
             this.onPOButtonClick(this.selectedDiagButton, this);
-            this.goToBachelorScene();
         }
     },
 
@@ -169,21 +214,29 @@ var candidateScene = new Phaser.Class({
         this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
         Candidates[CandidateSequ[CandSeqNo]-1].addFM(Questions[QuestNo].getResponseFool(char_type), Questions[QuestNo].getResponseManner(char_type));
 
+
         // add buttons
         // this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
         this.nextButtonCon.create();
         // this.dialogueBGBox.visible = true;
         // this.dialogueText.visible = true;
 
+        var soundKey = this.generateAudioKey(QuestNo, char_type);
+        console.log('playing ' + soundKey);
+        var sound = this.sound.add(soundKey, {volume: 1});
+        sound.play();
+
         // Set Button Functionality
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
             console.log("Pressed NEXT.");
+            sound.stop();
             that.goToBachelorScene();
 
         });
         this.input.keyboard.on('keydown_ENTER', function() {
             console.log("Pressed ENTER.");
+            sound.stop();
             that.goToBachelorScene();
         });
     },
@@ -194,6 +247,10 @@ var candidateScene = new Phaser.Class({
 
         // TODO(martin): add player fool and manner
         console.log("Fool: " + Questions[QuestNo].getAnswerFool(idx_ans) + " Manner: " + Questions[QuestNo].getAnswerManner(idx_ans));
+
+        var soundKey = this.getRandomGibberishAudioKey();
+        var sound = this.sound.add(soundKey, {volume: 1});
+        sound.play();
 
         Questions[QuestNo].setAnswerSector(idx_ans);
         Player.addFM(Questions[QuestNo].getAnswerFool(idx_ans), Questions[QuestNo].getAnswerManner(idx_ans));
