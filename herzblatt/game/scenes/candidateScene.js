@@ -19,8 +19,40 @@ var candidateScene = new Phaser.Class({
         this.nextButtonCon.preload();
         this.charDisplayCon.preload();
 
+        this.loadDialogueAudio();
+
         // Background
         g_loadAllBG(this);
+    },
+
+    loadDialogueAudio: function() {
+        if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {
+           for ( var i = 0; i < 4; i++) {
+                this.loadSingleDialogueAudio(QuestNo, i);
+            }
+        } else {
+            var candidate = Candidates[CandidateSequ[CandSeqNo]-1];
+            var characterNo = candidate.charType;
+            this.loadSingleDialogueAudio(QuestNo, characterNo);
+        }
+    },
+
+    loadSingleDialogueAudio: function(questionNo, characterNo) {
+        console.log('loading audio for answers for question ' + questionNo + ' character number ' + characterNo);
+        var key = this.generateAudioKey(questionNo, characterNo);
+        var file = this.generateAudioFilename(questionNo, characterNo);
+        console.log(key + ' -> ' + file);
+        this.load.audio(key, [file]);
+    },
+
+    generateAudioKey: function(questionNo, characterNo) {
+        return 'audio_a' + questionNo.toString() + '_' + characterNo;
+    },
+
+    generateAudioFilename: function(questionNo, characterNo) {
+        // 'A1_Character 1_custom winter jam.mp3'
+        return 'assets/voice/A' + (questionNo+1) + '_Character ' + (characterNo+1) + "_custom winter jam.wav.mp3";
+
     },
 
     create: function() {
@@ -163,21 +195,28 @@ var candidateScene = new Phaser.Class({
         this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
         Candidates[CandidateSequ[CandSeqNo]-1].addFM(Questions[QuestNo].getResponseFool(char_type), Questions[QuestNo].getResponseManner(char_type));
 
+
         // add buttons
         // this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
         this.nextButtonCon.create();
         // this.dialogueBGBox.visible = true;
         // this.dialogueText.visible = true;
 
+        var soundKey = this.generateAudioKey(QuestNo, char_type);
+        var sound = this.sound.add(soundKey, {volume: 1});
+        sound.play();
+
         // Set Button Functionality
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
             console.log("Pressed NEXT.");
+            sound.stop();
             that.goToBachelorScene();
 
         });
         this.input.keyboard.on('keydown_ENTER', function() {
             console.log("Pressed ENTER.");
+            sound.stop();
             that.goToBachelorScene();
         });
     },
@@ -188,6 +227,12 @@ var candidateScene = new Phaser.Class({
 
         // TODO(martin): add player fool and manner
         console.log("Fool: " + Questions[QuestNo].getAnswerFool(idx_ans) + " Manner: " + Questions[QuestNo].getAnswerManner(idx_ans));
+
+        var char_type = idx_ans;
+        var soundKey = this.generateAudioKey(QuestNo, char_type);
+        var sound = this.sound.add(soundKey, {volume: 1});
+        sound.play();
+
 
         Questions[QuestNo].setAnswerSector(idx_ans);
         Player.addFM(Questions[QuestNo].getAnswerFool(idx_ans), Questions[QuestNo].getAnswerManner(idx_ans));
