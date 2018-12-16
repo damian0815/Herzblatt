@@ -11,7 +11,7 @@ var youLostScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('ylbg', 'assets/pics/bg/gameOver.jpg');
+        this.load.image('ylbg', 'assets/pics/bg/gameOver.png');
     },
 
     create: function ()
