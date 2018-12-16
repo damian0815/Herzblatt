@@ -10,6 +10,7 @@ var bachelorScene = new Phaser.Class({
 
             this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
+            this.charDisplayCon = new CharDisplayComponent(this);
         },
 
     preload: function() {
@@ -19,6 +20,7 @@ var bachelorScene = new Phaser.Class({
         // Load Diag
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
+        this.charDisplayCon.preload();
 
         g_loadAllBG(this);
     },
@@ -29,6 +31,7 @@ var bachelorScene = new Phaser.Class({
 
         AskedQuestions[QuestNo] = true;
         this.createDialogue();
+        this.charDisplayCon.create(true, true, true, true);
     },
 
     createDialogue: function() {

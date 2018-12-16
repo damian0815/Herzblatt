@@ -14,6 +14,7 @@ var questionIntroScene = new Phaser.Class({
 
             this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
+            this.charDisplayCon = new CharDisplayComponent(this);
             this.readIntroText();
 
             this.anouncer_lvl = 0;
@@ -30,6 +31,7 @@ var questionIntroScene = new Phaser.Class({
         // Load Diag
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
+        this.charDisplayCon.preload();
     },
 
     create: function ()
@@ -40,6 +42,7 @@ var questionIntroScene = new Phaser.Class({
         // Create Diag
         this.HudDiagBGCon.createBase();
         this.nextButtonCon.create();
+        this.charDisplayCon.create();
 
         // Generate Intro Text
         this.genIntroText();
@@ -69,12 +72,14 @@ var questionIntroScene = new Phaser.Class({
 
             switch (this.anouncer_lvl) {
                 case 0:
+                    this.charDisplayCon.setCanAVisibility();
                     if (g_gameState.characterIndex === 0)
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[0] + this.anouncer_var_texts[0][this.rand_player]);
                     else
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[0] + this.anouncer_var_texts[1][this.rand_c1]);
                     break;
                 case 1:
+                    this.charDisplayCon.setCanBVisibility();
                     if (g_gameState.characterIndex === 1)
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[1]  + this.anouncer_var_texts[0][this.rand_player]);
                     else{
@@ -85,12 +90,14 @@ var questionIntroScene = new Phaser.Class({
                     }
                     break;
                 case 2:
+                    this.charDisplayCon.setCanCVisibility();
                     if (g_gameState.characterIndex === 2)
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[2] + this.anouncer_var_texts[0][this.rand_player]);
                     else
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[2] + this.anouncer_var_texts[1][this.rand_c2]);
                     break;
                 case 3:
+                    this.charDisplayCon.setCurtainVisibility();
                     this.HudDiagBGCon.setDiagText(this.anouncer_texts[3]);
                     break;
                 default:

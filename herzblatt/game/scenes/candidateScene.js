@@ -8,6 +8,7 @@ var candidateScene = new Phaser.Class({
 
             this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
+            this.charDisplayCon = new CharDisplayComponent(this);
         },
 
     preload: function() {
@@ -16,6 +17,7 @@ var candidateScene = new Phaser.Class({
 
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
+        this.charDisplayCon.preload();
 
         // Background
         g_loadAllBG(this);
@@ -25,6 +27,7 @@ var candidateScene = new Phaser.Class({
         g_addAllBG(this);
 
         // this.createDialogeMain();
+        this.charDisplayCon.create(true, true, true, true);
 
         if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {
             // Create Diag
