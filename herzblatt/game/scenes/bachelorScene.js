@@ -25,6 +25,28 @@ var bachelorScene = new Phaser.Class({
         this.reacCon.preload();
 
         g_loadAllBG(this);
+
+        this.randomizeBachelorGender();
+        this.loadDialogueAudio();
+    },
+
+    loadDialogueAudio: function() {
+        var key = this.getDialogueAudioKey();
+        var filename = 'assets/voice/q' + (QuestNo + 1) + this.getBachelorGender() + '.wav.mp3';
+        console.log('loading ' + key + ' -> ' + filename);
+        this.load.audio(key, [filename]);
+    },
+
+    getDialogueAudioKey: function() {
+        return 'question_' + QuestNo + '_' + this.getBachelorGender();
+    },
+
+    randomizeBachelorGender: function() {
+        this.bachelorGender = ((Phaser.Math.Between(0,1) === 0) ? 'm' : 'w');
+    },
+
+    getBachelorGender: function() {
+        return this.bachelorGender;
     },
 
     create: function() {
@@ -61,10 +83,12 @@ var bachelorScene = new Phaser.Class({
         // this.dialogueBGBox.visible = true;
 
         // Load Texts depending on DiagState
-        if (DiagState === DiagStateEnum.quest)
+        if (DiagState === DiagStateEnum.quest) {
             // this.dialogueText.setText(Questions[QuestNo].question);
             this.HudDiagBGCon.setDiagText(Questions[QuestNo].question);
-        else if (DiagState === DiagStateEnum.resp ) {
+            var audio = this.sound.add(this.getDialogueAudioKey());
+            audio.play();
+        } else if (DiagState === DiagStateEnum.resp ) {
 // =======
 //         this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0, 1);
 //         this.dialogueBGBox.displayWidth = GAME_WIDTH;
@@ -110,6 +134,9 @@ var bachelorScene = new Phaser.Class({
 
             CandSeqNo++;
         }
+
+
+
 
         // Set Button Functionality
         var that = this;
