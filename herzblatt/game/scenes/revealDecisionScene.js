@@ -79,7 +79,8 @@ var revealDecisionScene = new Phaser.Class({
             that.nextButton.visible = false;
             that.nextButtonText.visible = false;
             that.HudDiagBGCon.setDiagText("And I choose ...");
-            that.timedEvent_diag = that.time.addEvent( {delay: 7000, repeat: 0} );
+            that.timedEvent_diag = that.time.addEvent( {delay: 9000, repeat: 0} );
+            that.bg_timer = that.time.addEvent( {delay: 9000, repeat: 0} );
             that.said_next = false;
 
             if (!this.drumrollSound) {
@@ -104,7 +105,7 @@ var revealDecisionScene = new Phaser.Class({
         // this.add.text(100, 100, 'revealDecisionBG.jpg\n\nBig dramatic reveal of the decision...');
         g_loadClick(this);
         this.timedEvent_button = this.time.addEvent( {delay: 5000, repeat: 0} );
-        this.bg_timer = this.time.addEvent( {delay: 15000, repeat: 0} );
+        this.bg_timer = this.time.addEvent( {delay: 10, repeat: 0} );
     },
 
     update: function() {
@@ -118,12 +119,12 @@ var revealDecisionScene = new Phaser.Class({
             this.said_next = true;
         }
 
-        if (this.bg_timer.getElapsed() > 9000 && this.bg_timer.getProgress() !== 1.0) {
-            if (this.bg_timer.getElapsed() < 11000)
+        if (this.bg_timer.getElapsed() > 2000 && this.bg_timer.getProgress() !== 1.0) {
+            if (this.bg_timer.getElapsed() < 4000)
                 this.displayFlames(0);
-            else if (this.bg_timer.getElapsed() < 13000)
+            else if (this.bg_timer.getElapsed() < 6000)
                 this.displayFlames(1);
-            else if (this.bg_timer.getElapsed() < 15000)
+            else if (this.bg_timer.getElapsed() < 8000)
                 this.displayFlames(2);
         }
     },

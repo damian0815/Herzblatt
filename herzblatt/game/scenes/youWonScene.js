@@ -11,7 +11,7 @@ var youWonScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('ywbg', 'assets/pics/bg/win.jpg');
+        this.load.image('ywbg', 'assets/pics/bg/win.png');
     },
 
     create: function ()

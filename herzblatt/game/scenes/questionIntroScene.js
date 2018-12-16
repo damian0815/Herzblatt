@@ -26,7 +26,7 @@ var questionIntroScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('qibg', 'assets/pics/questionIntroSceneBG.jpg');
+        //this.load.image('qibg', 'assets/pics/questionIntroSceneBG.jpg');
 
         // Load Background
         g_loadAllBG(this);
@@ -52,7 +52,7 @@ var questionIntroScene = new Phaser.Class({
         // Generate Intro Text
         this.genIntroText();
 
-        this.add.text(100, 100, 'questionIntroSceneBG.jpg\n\nIntro to game. Click to continue.');
+        //this.add.text(100, 100, 'questionIntroSceneBG.jpg\n\nIntro to game. Click to continue.');
 
         // this.input.once('pointerdown', function () {
         //     this.scene.start('bachelorScene');
