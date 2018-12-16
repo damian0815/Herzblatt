@@ -41,6 +41,25 @@ var g_playSwish = function(scene) {
     swish.play();
 }
 
+var g_titleMusic = null;
+
+var g_loadTitleMusic = function(scene) {
+    scene.load.audio('titleMusic', ['assets/music/titles.mp3']);
+}
+
+var g_playTitleMusic = function(scene) {
+    if (g_titleMusic == null) {
+        g_titleMusic = scene.sound.add('titleMusic', {loop: true, volume: 0.3});
+        g_titleMusic.play();
+    }
+}
+var g_stopTitleMusic = function() {
+    if (g_titleMusic) {
+        g_titleMusic.stop();
+        g_titleMusic = null;
+    }
+}
+
 
 var g_gameState = { characterIndex: 0 };
 var game = new Phaser.Game(config);

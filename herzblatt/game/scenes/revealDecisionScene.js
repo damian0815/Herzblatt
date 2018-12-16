@@ -27,12 +27,16 @@ var revealDecisionScene = new Phaser.Class({
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
         this.charDisplayCon.preload();
+
+        this.load.audio('drumroll', 'assets/sound/drumroll.mp3');
     },
 
     create: function ()
     {
         // Load Background
         g_addAllBG(this);
+
+
 
         // Create Diag
         this.HudDiagBGCon.createBig();
@@ -46,8 +50,13 @@ var revealDecisionScene = new Phaser.Class({
             that.nextButton.visible = false;
             that.nextButtonText.visible = false;
             that.HudDiagBGCon.setDiagText("And I choose ...");
-            timedEvent_diag = that.time.addEvent( {delay: 2000, repeat: 0} );
+            timedEvent_diag = that.time.addEvent( {delay: 5000, repeat: 0} );
             that.said_next = false;
+
+            if (!this.drumrollSound) {
+                this.drumrollSound = that.sound.add('drumroll');
+                this.drumrollSound.play();
+            }
         });
 
         this.nextButton.visible = false;
