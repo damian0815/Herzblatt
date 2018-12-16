@@ -5,7 +5,7 @@ var characterSelectScene = new Phaser.Class({
     Extends: Phaser.Scene,
 
     kNumCharacters: 3,
-    kXPositions: [ 302, 660, 945 ],
+    kXPositions: [ 280, 600, 1000 ],
     kYPositions: [ 589/2, 589/2, 589/2 ],
 
     initialize:
@@ -17,9 +17,9 @@ var characterSelectScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('csbg', 'assets/pics/characterSelectBG.png');
-        this.load.image('select', 'assets/pics/characterSelectHighlight.png');
-        this.load.image('overlay', 'assets/pics/black_square.png')
+        this.load.image('csbg', 'assets/pics/bg/character_select.png');
+        this.load.image('select', 'assets/pics/spotlight/spotlight_yellow.png');
+        this.load.image('overlay', 'assets/pics/black_square.png');
 
         g_loadClick(this);
         g_loadSwish(this);
@@ -142,6 +142,7 @@ var characterSelectScene = new Phaser.Class({
         var currentIndex = scene.selectedCharacterIndex;
         g_gameState.characterIndex = currentIndex;
         g_playClick(scene);
-        scene.scene.start('questionIntroScene');
+        // scene.scene.start('questionIntroScene');
+        scene.scene.start('loadingScene');
     }
 });

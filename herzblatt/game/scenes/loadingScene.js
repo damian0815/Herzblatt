@@ -1,10 +1,10 @@
 
 
 // DEFINE VARIABLES AND CONSTANTS
-var NO_QUESTIONS = 3;
+var NO_QUESTIONS = 11;
 var NO_CANDIDATES = 3;
 var NO_DBUTTONS = 3;
-var NO_TOTQUEST = 2;
+var NO_TOTQUEST = 3;
 
 var KEY_DOWN_DURATION = 250; // in ms
 
@@ -51,12 +51,6 @@ var loadingScene = new Phaser.Class({
             Bachelor.addFM(fsgn * (g_getFRandom(3) + 10), msgn * (g_getFRandom(3) + 10));
             console.log("Created Bachelor with type " + rand_type + " and FM: " + Bachelor.fool + "=" + Bachelor.manner);
 
-            // Initialize Candidates
-            for (var i = 0; i < Candidates.length; i++) {
-                rand_type = g_getFRandom(4);
-                Candidates[i] = new Person(rand_type, false);
-                console.log("Created Candidate " + i + " with type " + rand_type);
-            }
 
             // Load Questions
             for (var z = 0; z < NO_QUESTIONS; z++) {
@@ -141,6 +135,9 @@ var loadingScene = new Phaser.Class({
 
         this.add.text(100, 100, 'Loading');
 
+        // Initialize Candidates
+        this.createCandidates();
+
         // var playButton = this.add.sprite(400, 500, 'play').setInteractive();
         // var that = this;
         // playButton.on('pointerover', function(pointer) {
@@ -150,8 +147,9 @@ var loadingScene = new Phaser.Class({
         //     this.clearTint();
         // });
         // playButton.on('pointerdown', function(pointer) {
-            console.log('Clicked play, going to bachelorScene');
-            this.scene.start('characterSelectScene');
+            console.log('Clicked play, going to questionIntroScene');
+            // this.scene.start('characterSelectScene');
+        this.scene.start('questionIntroScene');
         // });
 // =======
 //         var playButton = this.add.sprite(400, 500, 'play').setInteractive();
@@ -171,6 +169,40 @@ var loadingScene = new Phaser.Class({
 //             that.scene.start('characterSelectScene');
 //         });
 // >>>>>>> master
+    },
+
+    createCandidates: function() {
+        console.log("Player chose: " + g_gameState.characterIndex);
+        switch (g_gameState.characterIndex) {
+            case 0:
+                var rand_type1 = g_getFRandom(4);
+                Candidates[0] = new Person(rand_type1, false);
+                console.log("Created Candidate 0 with type " + rand_type1);
+                var rand_type2 = rand_type1;
+                while(rand_type2 === rand_type1)
+                    rand_type2 = (g_getFRandom(2)+1) * 2;
+                Candidates[1] = new Person(rand_type2-1, false);
+                console.log("Created Candidate 1 with type " + (rand_type2-1));
+                break;
+            case 1:
+                var rand_type = (g_getFRandom(2)+1) * 2 -1;
+                Candidates[0] = new Person(rand_type-1, false);
+                console.log("Created Candidate 0 with type " + (rand_type-1));
+                rand_type = (g_getFRandom(2)+1) * 2;
+                Candidates[1] = new Person(rand_type-1, false);
+                console.log("Created Candidate 1 with type " + (rand_type-1));
+                break;
+            case 2:
+                var rand_type1 = g_getFRandom(4);
+                Candidates[1] = new Person(rand_type1, false);
+                console.log("Created Candidate 1 with type " + rand_type1);
+                var rand_type2 = rand_type1;
+                while(rand_type2 === rand_type1)
+                    rand_type2 = (g_getFRandom(2)+1) * 2 -1;
+                Candidates[0] = new Person(rand_type2-1, false);
+                console.log("Created Candidate 0 with type " + (rand_type2-1));
+                break;
+        }
     },
 
     /**

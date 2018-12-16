@@ -13,11 +13,12 @@ var textHeight=240;
 var textWidth=1100;
 
 var config = {
-    type: Phaser.AUTO,
+    // type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     backgroundColor: '#000000',
-    scene: [ titleScene, characterSelectScene, loadingScene, bachelorScene, candidateScene, questionIntroScene, revealBachelorScene, revealDecisionScene, youLostScene, youWonScene ]
+    scene: [ titleScene, characterSelectScene, loadingScene, bachelorScene, candidateScene, questionIntroScene, revealBachelorScene, revealDecisionScene, youLostScene, youWonScene, resetScene ]
 };
 
 var g_loadClick = function(scene) {

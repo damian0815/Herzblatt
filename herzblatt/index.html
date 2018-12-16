@@ -71,6 +71,56 @@
                     alert("could not load dialouge");
                 })
             }
+            function loadQ7() {
+                $.ajax({
+                    url: 'assets/dialogue/Q7.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ8() {
+                $.ajax({
+                    url: 'assets/dialogue/Q8.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ9() {
+                $.ajax({
+                    url: 'assets/dialogue/Q9.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ10() {
+                $.ajax({
+                    url: 'assets/dialogue/Q10.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
+            function loadQ11() {
+                $.ajax({
+                    url: 'assets/dialogue/Q11.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#diags').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load dialouge");
+                })
+            }
 
             function loadIntro() {
                 $.ajax({
@@ -105,9 +155,14 @@
             loadQ1();
             loadQ2();
             loadQ3();
-            //loadQ4();
-            //loadQ5();
-            //loadQ6();
+            loadQ4();
+            loadQ5();
+            loadQ6();
+            loadQ7();
+            loadQ8();
+            loadQ9();
+            loadQ10();
+            loadQ11();
             loadIntro();
             loadReacs();
             // loadBattleFIN();
@@ -117,6 +172,8 @@
     <script src="game/components/sceneBGComponent.js"></script>
     <script src="game/components/reactionOverlayComponent.js"></script>
     <script src="game/scenes/loadingScene.js"></script>
+
+    <script src="game/audio/introAudio.js"></script>
 
     <script src="game/classes/Question.js"></script>
     <script src="game/classes/Person.js"></script>
@@ -135,6 +192,7 @@
     <script src="game/scenes/titleScene.js"></script>
     <script src="game/scenes/youLostScene.js"></script>
     <script src="game/scenes/youWonScene.js"></script>
+    <script src="game/scenes/resetScene.js"></script>
 
     <script src="game/game.js"></script>
 
