@@ -28,6 +28,7 @@ var revealBachelorScene = new Phaser.Class({
         g_addAllBG(this);
 
         this.charDisplayCon.create(true, true, true, true);
+        this.charDisplayCon.setBachVisibility(true);
 
         this.moveCompleted = false;
         this.prevTime = 0.0;

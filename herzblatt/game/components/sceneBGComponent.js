@@ -26,7 +26,8 @@ class CharDisplayComponent {
         this.scene.load.image('canA', 'assets/pics/chars/candidate_A.png');
         this.scene.load.image('canB', 'assets/pics/chars/candidate_B.png');
         this.scene.load.image('canC', 'assets/pics/chars/candidate_C.png');
-        this.scene.load.image('curtain', 'assets/pics/chars/curtain.png');
+        this.scene.load.image('canC', 'assets/pics/chars/MrBlobby.png');
+        this.scene.load.image('curtain', 'assets/pics/chars/curtain02.png');
 
         this.scene.load.image('spotA', 'assets/pics/spotlight/spotlight_red.png');
         this.scene.load.image('spotB', 'assets/pics/spotlight/spotlight_white.png');
@@ -34,10 +35,13 @@ class CharDisplayComponent {
     }
 
     create(visA = false, visB = false, visC = false, visCur = false) {
+        this.bach = this.scene.add.image(0,0,'MrBlobby').setOrigin(0,0);
         this.canA = this.scene.add.image(0,0,'canA').setOrigin(0,0);
         this.canB = this.scene.add.image(0,0,'canB').setOrigin(0,0);
         this.canC = this.scene.add.image(0,0,'canC').setOrigin(0,0);
         this.curtain = this.scene.add.image(0,0,'curtain').setOrigin(0,0);
+
+        this.bach.visible = false;
 
         this.canA.visible = visA;
         this.canB.visible = visB;
@@ -57,6 +61,10 @@ class CharDisplayComponent {
         this.spotA.visible = false;
         this.spotB.visible = false;
         this.spotC.visible = false;
+    }
+
+    setBachVisibility(value = false) {
+        this.bach.visible = value;
     }
 
     setCanAVisibility(value = true) {
@@ -84,9 +92,9 @@ class CharDisplayComponent {
     }
 
     setSpotVisibility(a = false, b = false, c = false) {
-        this.spotA = a;
-        this.spotB = b;
-        this.spotC = c;
+        this.spotA.visible = a;
+        this.spotB.visible = b;
+        this.spotC.visible = c;
     }
 
     setCurtainVisibility(value = true) {

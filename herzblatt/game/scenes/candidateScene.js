@@ -27,8 +27,14 @@ var candidateScene = new Phaser.Class({
         this.key_adv = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         g_addAllBG(this);
 
+        console.log("CanSeq: " + CandidateSequ[CandSeqNo]);
+
         // this.createDialogeMain();
         this.charDisplayCon.create(true, true, true, true);
+        var a = CandidateSequ[CandSeqNo] === 0;
+        var b = CandidateSequ[CandSeqNo] === 1;
+        var c = CandidateSequ[CandSeqNo] === 2;
+        this.charDisplayCon.setSpotVisibility(a, b, c);
 
         if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {
             // Create Diag
