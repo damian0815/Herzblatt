@@ -248,9 +248,10 @@ var candidateScene = new Phaser.Class({
         // TODO(martin): add player fool and manner
         console.log("Fool: " + Questions[QuestNo].getAnswerFool(idx_ans) + " Manner: " + Questions[QuestNo].getAnswerManner(idx_ans));
 
-        var soundKey = this.getRandomGibberishAudioKey();
-        var sound = this.sound.add(soundKey, {volume: 1});
-        sound.play();
+        // don't play gibberish until we figure out how to pause
+        //var soundKey = this.getRandomGibberishAudioKey();
+        //var sound = this.sound.add(soundKey, {volume: 1});
+        //sound.play();
 
         Questions[QuestNo].setAnswerSector(idx_ans);
         Player.addFM(Questions[QuestNo].getAnswerFool(idx_ans), Questions[QuestNo].getAnswerManner(idx_ans));
