@@ -26,7 +26,7 @@ class CharDisplayComponent {
         this.scene.load.image('canA', 'assets/pics/chars/candidate_A.png');
         this.scene.load.image('canB', 'assets/pics/chars/candidate_B.png');
         this.scene.load.image('canC', 'assets/pics/chars/candidate_C.png');
-        this.scene.load.image('canC', 'assets/pics/chars/MrBlobby.png');
+        this.scene.load.image('MrBlobby', 'assets/pics/chars/MrBlobby.png');
         this.scene.load.image('curtain', 'assets/pics/chars/curtain02.png');
 
         this.scene.load.image('spotA', 'assets/pics/spotlight/spotlight_red.png');
