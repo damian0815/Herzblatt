@@ -19,6 +19,7 @@ var characterSelectScene = new Phaser.Class({
     {
         this.load.image('csbg', 'assets/pics/characterSelectBG.png');
         this.load.image('select', 'assets/pics/characterSelectHighlight.png');
+        this.load.image('overlay', 'assets/pics/black_square.png')
 
         g_loadClick(this);
         g_loadSwish(this);
@@ -31,6 +32,40 @@ var characterSelectScene = new Phaser.Class({
     create: function ()
     {
         this.add.sprite(640, 360, 'csbg').setAlpha(1);
+
+        for (var i = 0; i < this.kXPositions.length; i++) {
+            var sprite = this.add.sprite(this.kXPositions[i], 589 / 2).setAlpha(0.1);
+            sprite.displayWidth = 250;
+            sprite.displayHeight = 589;
+            sprite.setInteractive();
+
+            var that = this;
+            switch (i) {
+                case 0:
+                    sprite.on('pointerover', function (pointer) {
+                        that.selectCharacter(0);
+                    });
+                    break;
+                case 1:
+                    sprite.on('pointerover', function (pointer) {
+                        that.selectCharacter(1);
+                    });
+                    break;
+                case 2:
+                    sprite.on('pointerover', function (pointer) {
+                        that.selectCharacter(2);
+                    });
+                    break;
+                default:
+                    break;
+            }
+
+            sprite.on('pointerdown', function(pointer) {
+                that.pressedEnter(that);
+            })
+
+        }
+
 
         this.add.sprite(0, 500, 'personADescription').setAlpha(0);
         this.add.sprite(0, 500, 'personBDescription').setAlpha(0);
@@ -95,10 +130,18 @@ var characterSelectScene = new Phaser.Class({
         }, this);
 
         this.input.keyboard.on('keydown_ENTER', function () {
-            var currentIndex = that.selectedCharacterIndex;
-            g_gameState.characterIndex = currentIndex;
-            g_playClick(that);
-            that.scene.start('questionIntroScene');
+            // var currentIndex = that.selectedCharacterIndex;
+            // g_gameState.characterIndex = currentIndex;
+            // g_playClick(that);
+            // that.scene.start('questionIntroScene');
+            that.pressedEnter(that);
         }, this);
+    },
+
+    pressedEnter: function(scene) {
+        var currentIndex = scene.selectedCharacterIndex;
+        g_gameState.characterIndex = currentIndex;
+        g_playClick(scene);
+        scene.scene.start('questionIntroScene');
     }
 });
