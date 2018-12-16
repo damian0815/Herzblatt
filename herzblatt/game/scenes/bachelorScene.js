@@ -31,14 +31,29 @@ var bachelorScene = new Phaser.Class({
     },
 
     loadDialogueAudio: function() {
-        var key = this.getDialogueAudioKey();
-        var filename = 'assets/voice/q' + (QuestNo + 1) + this.getBachelorGender() + '.wav.mp3';
-        console.log('loading ' + key + ' -> ' + filename);
-        this.load.audio(key, [filename]);
+        var questionKey = this.getDialogueAudioKey_Question();
+        var questionFilename = 'assets/voice/q' + (QuestNo + 1) + this.getBachelorGender() + '.wav.mp3';
+        console.log('loading ' + questionKey + ' -> ' + questionFilename);
+        this.load.audio(questionKey, [questionFilename]);
+
+        var reactions = ['p', 'm', 'n'];
+        for (var i=0; i<3; i++) {
+            var reaction = reactions[i];
+            for (var j=0; j<5; j++) {
+                var reactionFilename = 'assets/voice/r' + reaction + j + this.getBachelorGender() + '.wav.mp3';
+                var reactionKey = this.getDialogueAudioKey_Reaction(reaction, j);
+                this.load.audio(reactionKey, [reactionFilename]);
+            }
+        }
+
     },
 
-    getDialogueAudioKey: function() {
+    getDialogueAudioKey_Question: function() {
         return 'question_' + QuestNo + '_' + this.getBachelorGender();
+    },
+
+    getDialogueAudioKey_Reaction: function(reactionType, index) {
+        return 'reaction_' + reactionType + '_' + index + '_' + this.getBachelorGender();
     },
 
     randomizeBachelorGender: function() {
@@ -82,48 +97,32 @@ var bachelorScene = new Phaser.Class({
         this.nextButtonCon.create();
         // this.dialogueBGBox.visible = true;
 
+        var audio;
         // Load Texts depending on DiagState
         if (DiagState === DiagStateEnum.quest) {
             // this.dialogueText.setText(Questions[QuestNo].question);
             this.HudDiagBGCon.setDiagText(Questions[QuestNo].question);
-            var audio = this.sound.add(this.getDialogueAudioKey());
+            audio = this.sound.add(this.getDialogueAudioKey_Question());
             audio.play();
         } else if (DiagState === DiagStateEnum.resp ) {
-// =======
-//         this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0, 1);
-//         this.dialogueBGBox.displayWidth = GAME_WIDTH;
-//         this.dialogueBGBox.displayHeight = 40 + 2 * TEXT_Y_MARGIN;
-//         this.dialogueBGBox.visible = true;
-//
-//         // Create Dialogue Text
-//         this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth) / 2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, "", DiagTextSyle);
-//         this.dialogueText.setOrigin(0, 0);
-//         this.dialogueText.visible = false;
-//
-//         // TODO(martin): add next button here
-//         this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0, 0).setInteractive();
-//         this.dialogueBGBox.visible = true;
-//
-//         // Load Texts depending on DiagState
-//         if (DiagState === DiagStateEnum.quest)
-//             this.dialogueText.setText(Questions[QuestNo].question);
-//         else if (DiagState === DiagStateEnum.resp) {
-// >>>>>>> master
-
             // Let Bachelor react
             var rand_react = 0;// use random reaction
+            var audioKey;
             switch (this.bachReaction()) {
                 case 1:
                     // this.dialogueText.setText("I do love that as well.");
-                    this.reacCon.showPositiveReaction();
+                    var which = this.reacCon.showPositiveReaction();
+                    audioKey = this.getDialogueAudioKey_Reaction('p', which);
                     break;
                 case 0:
                     // this.dialogueText.setText("Well whatever.");
-                    this.reacCon.showNeutralReaction();
+                    var which = this.reacCon.showNeutralReaction();
+                    audioKey = this.getDialogueAudioKey_Reaction('m', which);
                     break;
                 case -1:
                     // this.dialogueText.setText("That .... seems weird.");
-                    this.reacCon.showNegativeReaction();
+                    var which = this.reacCon.showNegativeReaction();
+                    audioKey = this.getDialogueAudioKey_Reaction('n', which);
                     break;
                 default:
                     // this.dialogueText.setText("I do not know what to respond to that.");
@@ -131,45 +130,24 @@ var bachelorScene = new Phaser.Class({
                     break;
 
             }
+            audio = this.sound.add(audioKey);
+            audio.play();
 
             CandSeqNo++;
         }
 
 
 
+        this.audio = audio;
 
         // Set Button Functionality
         var that = this;
         this.nextButton.on('pointerdown', function (pointer) {
             console.log("Pressed NEXT.");
 
-// <<<<<<< HEAD
-//             if (CandSeqNo >= CandidateSequ.length){
-//                 if (NoAskedQuestions >= NO_TOTQUEST) {
-//                     //TODO(martin) endgamescene;
-//                     console.log('END Dialogue');
-//                     that.scene.start('revealDecisionScene');
-//                 }
-//                 else
-//                     that.loadNextQuestion();
-//             }
-//             else
-//                 that.scene.start('candidateScene');
-// =======
             that.nextButtonPressed();
         });
-//
-//         this.input.keyboard.on('keyjustdown_ENTER', function() {
-//             console.log("Pressed ENTER.");
-//             that.nextButtonPressed();
-// // >>>>>>> master
-//         });
 
-        // this.input.keyboard.justDown('key_ENTER', function() {
-        //     console.log("Pressed ENTER2.");
-            // that.nextButtonPressed();
-// >>>>>>> master
-//         });
 
     },
 
@@ -183,6 +161,7 @@ var bachelorScene = new Phaser.Class({
     },
 
     nextButtonPressed: function() {
+        this.audio.stop();
         if (CandSeqNo >= CandidateSequ.length){
             if (NoAskedQuestions >= NO_TOTQUEST) {
                     //TODO(martin) endgamescene;

@@ -46,6 +46,7 @@ class ReactionOverlayComponent {
         this.scene.HudDiagBGCon.setDiagText(this.posTexts[rand]);
 
         this.hideAfterDelay(this.positive);
+        return rand;
     }
 
     showNeutralReaction() {
@@ -58,6 +59,7 @@ class ReactionOverlayComponent {
         this.scene.HudDiagBGCon.setDiagText(this.medTexts[rand]);
 
         this.hideAfterDelay(this.neutral);
+        return rand;
     }
 
     showNegativeReaction() {
@@ -70,6 +72,7 @@ class ReactionOverlayComponent {
         this.scene.HudDiagBGCon.setDiagText(this.negTexts[rand]);
 
         this.hideAfterDelay(this.negative);
+        return rand;
     }
 
     setRandomPosition(reaction) {
