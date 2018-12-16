@@ -201,7 +201,9 @@ var loadingScene = new Phaser.Class({
             var fool = parseInt(mf_text[0]);
             var manner = parseInt(mf_text[1]);
 
-            Questions[idx_q].addResponse(new Answer(res_text[0],manner,fool), r_idx-1);
+            r_idx = r_idx === 4 ? 2 : r_idx < 3 ? r_idx - 1 : r_idx;
+
+            Questions[idx_q].addResponse(new Answer(res_text[0],manner,fool), r_idx);
         }
     },
 

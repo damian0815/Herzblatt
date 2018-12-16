@@ -43,8 +43,8 @@ class Answer {
 class Question {
     constructor(question) {
         this.question = question;
-        this.answers = [4];
-        this.responses = [4];
+        this.answers = new Array(4);
+        this.responses = new Array(4);
         this.answercount = 0;
         this.responsecount = 0;
         this.ansSector = 0;
@@ -101,7 +101,7 @@ class Question {
     }
 
     getResponse(idx_resp) {
-        if (idx_resp < 0 || idx_resp > this.responses)
+        if (idx_resp < 0 || idx_resp >= this.responsecount)
             console.error("Response Index out of Bounds.");
 
         this.ansSector = idx_resp;

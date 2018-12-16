@@ -102,30 +102,10 @@ var revealDecisionScene = new Phaser.Class({
                 nextScene = 'youLostScene';
 
             // TODO(martin): change back
-            //that.scene.start(nextScene);
-            that.scene.start('revealBachelorScene');
+            that.scene.start(nextScene);
+            // that.scene.start('revealBachelorScene');
         });
     },
-
-    // onExplodeTimer: function() {
-    //
-    //
-    //     var bachelorSelectedIndex = this.getBachelorSelectedCharacterIndex();
-    //     var nextScene;
-    //     if (bachelorSelectedIndex == g_gameState.characterIndex) {
-    //         this.add.text(100, 200, 'the bachelor picked you <3\n\nclick to continue');
-    //         nextScene = 'revealBachelorScene';
-    //     } else {
-    //         this.add.text(100, 200, 'you exploded :(\n\nclick to continue');
-    //         nextScene = 'youLostScene';
-    //     }
-    //
-    //     var that = this;
-    //     this.input.once('pointerdown', function () {
-    //         that.scene.start(nextScene);
-    //     }, this);
-    //
-    // },
 
     calculateWinner: function() {
         var player_fm = Player.getFM();

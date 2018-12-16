@@ -46,18 +46,18 @@ var candidateScene = new Phaser.Class({
         }
     },
 
-    createDialogeMain: function() {
-        // Create Dialogue Background
-        this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
-        this.dialogueBGBox.displayWidth = GAME_WIDTH;
-        this.dialogueBGBox.displayHeight = 240 + 2*TEXT_Y_MARGIN;
-        this.dialogueBGBox.visible = true;
-
-        // Create Dialogue Text
-        this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth)/2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, Questions[QuestNo].question, DiagTextSyle);
-        this.dialogueText.setOrigin(0,0);
-        this.dialogueText.visible = true;
-    },
+    // createDialogeMain: function() {
+    //     // Create Dialogue Background
+    //     this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
+    //     this.dialogueBGBox.displayWidth = GAME_WIDTH;
+    //     this.dialogueBGBox.displayHeight = 240 + 2*TEXT_Y_MARGIN;
+    //     this.dialogueBGBox.visible = true;
+    //
+    //     // Create Dialogue Text
+    //     this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth)/2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, Questions[QuestNo].question, DiagTextSyle);
+    //     this.dialogueText.setOrigin(0,0);
+    //     this.dialogueText.visible = true;
+    // },
 
     createDialogueNPC: function() {
 
@@ -107,6 +107,7 @@ var candidateScene = new Phaser.Class({
 
         console.log(Candidates[CandidateSequ[CandSeqNo]-1].charType);
         var char_type = Candidates[CandidateSequ[CandSeqNo]-1].charType;
+        console.log(char_type);
         console.log("Fool: " + Questions[QuestNo].getResponseFool(char_type) + " Manner: " + Questions[QuestNo].getResponseManner(char_type));
 
         this.diagButtons = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0);
