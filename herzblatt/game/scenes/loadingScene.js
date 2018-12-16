@@ -139,18 +139,18 @@ var loadingScene = new Phaser.Class({
 
         this.add.text(100, 100, 'Loading');
 
-        var playButton = this.add.sprite(400, 500, 'play').setInteractive();
-        var that = this;
-        playButton.on('pointerover', function(pointer) {
-            this.setTint(0xffaaaa);
-        });
-        playButton.on('pointerout', function(pointer) {
-            this.clearTint();
-        });
-        playButton.on('pointerdown', function(pointer) {
+        // var playButton = this.add.sprite(400, 500, 'play').setInteractive();
+        // var that = this;
+        // playButton.on('pointerover', function(pointer) {
+        //     this.setTint(0xffaaaa);
+        // });
+        // playButton.on('pointerout', function(pointer) {
+        //     this.clearTint();
+        // });
+        // playButton.on('pointerdown', function(pointer) {
             console.log('Clicked play, going to bachelorScene');
-            that.scene.start('characterSelectScene');
-        });
+            this.scene.start('characterSelectScene');
+        // });
     },
 
     /**
