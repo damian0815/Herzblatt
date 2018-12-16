@@ -1,5 +1,5 @@
 
-var CharTypeEnum = Object.freeze({"gFgM":0, "gFbM":1, "bFgM":2, "bFbM":3});
+var CharTypeEnum = Object.freeze({"gFgM":0, "gFbM":1, "bFgM":3, "bFbM":2});
 
 class Person {
     constructor(charType, isBachelor = false) {

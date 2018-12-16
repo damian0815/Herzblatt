@@ -11,6 +11,7 @@ var bachelorScene = new Phaser.Class({
             this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
             this.charDisplayCon = new CharDisplayComponent(this);
+            this.reacCon = new ReactionOverlayComponent(this);
         },
 
     preload: function() {
@@ -21,6 +22,7 @@ var bachelorScene = new Phaser.Class({
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
         this.charDisplayCon.preload();
+        this.reacCon.preload();
 
         g_loadAllBG(this);
     },
@@ -32,6 +34,7 @@ var bachelorScene = new Phaser.Class({
         AskedQuestions[QuestNo] = true;
         this.createDialogue();
         this.charDisplayCon.create(true, true, true, true);
+        this.reacCon.preload();
     },
 
     createDialogue: function() {
@@ -66,15 +69,15 @@ var bachelorScene = new Phaser.Class({
             switch (this.bachReaction()) {
                 case 1:
                     // this.dialogueText.setText("I do love that as well.");
-                    this.HudDiagBGCon.setDiagText("I do love that as well.");
+                    this.reacCon.showPositiveReaction();
                     break;
                 case 0:
                     // this.dialogueText.setText("Well whatever.");
-                    this.HudDiagBGCon.setDiagText("Well whatever.");
+                    this.reacCon.showNeutralReaction();
                     break;
                 case -1:
                     // this.dialogueText.setText("That .... seems weird.");
-                    this.HudDiagBGCon.setDiagText("That .... seems weird.");
+                    this.reacCon.showNegativeReaction();
                     break;
                 default:
                     // this.dialogueText.setText("I do not know what to respond to that.");

@@ -82,6 +82,16 @@
                     alert("could not load INTRO dialouge");
                 })
             }
+            function loadReacs() {
+                $.ajax({
+                    url: 'assets/dialogue/reactions/Reaction.html'
+                }).done(function (resp) {
+                    var parsedHtml = $.parseHTML(resp);
+                    $('#intro').append($(parsedHtml).children('tw-passagedata'))
+                }).fail(function () {
+                    alert("could not load REACS dialouge");
+                })
+            }
             // function loadBattleFIN() {
             //     $.ajax({
             //         url: 'assets/dialogues/ArrestSuspect-final.html'
@@ -99,11 +109,13 @@
             //loadQ5();
             //loadQ6();
             loadIntro();
+            loadReacs();
             // loadBattleFIN();
         })
     </script>
 
     <script src="game/components/sceneBGComponent.js"></script>
+    <script src="game/components/reactionOverlayComponent.js"></script>
     <script src="game/scenes/loadingScene.js"></script>
 
     <script src="game/classes/Question.js"></script>

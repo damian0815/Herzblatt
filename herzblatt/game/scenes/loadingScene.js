@@ -42,8 +42,7 @@ var loadingScene = new Phaser.Class({
             // Initialize Bachelor and Player
             Player = new Person(-1);
             Bachelor = new Person(0, true);
-            var rand_type = Math.ceil(Math.random() * 4); // random value between 1 and 4
-            rand_type = rand_type === 0 ? 1 : rand_type; // correct the  possibility of getting 0
+            var rand_type = g_getFRandom(4); // correct the  possibility of getting 0
             Bachelor.charType = rand_type;
             var fsgn = rand_type < 2  ? 1 : -1;
             var msgn = rand_type %3  === 0 ? 1 : -1;
@@ -52,8 +51,7 @@ var loadingScene = new Phaser.Class({
 
             // Initialize Candidates
             for (var i = 0; i < Candidates.length; i++) {
-                rand_type = Math.floor(Math.random() * 4); // random value between 1 and 4
-                rand_type = rand_type === 4 ? 3 : rand_type; // correct the  possibility of getting 0
+                rand_type = g_getFRandom(4);
                 Candidates[i] = new Person(rand_type, false);
                 console.log("Created Candidate " + i + " with type " + rand_type);
             }
