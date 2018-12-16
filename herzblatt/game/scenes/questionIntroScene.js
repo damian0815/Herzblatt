@@ -107,6 +107,7 @@ var questionIntroScene = new Phaser.Class({
                     break;
                 case 3:
                     this.charDisplayCon.setCurtainVisibility();
+                    this.charDisplayCon.setSpotVisibility();
                     this.HudDiagBGCon.setDiagText(this.anouncer_texts[3]);
                     break;
                 default:
