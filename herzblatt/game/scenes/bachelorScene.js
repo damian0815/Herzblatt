@@ -8,6 +8,7 @@ var bachelorScene = new Phaser.Class({
         function bachelorScene() {
             Phaser.Scene.call(this, { key: 'bachelorScene' });
 
+            this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
         },
 
@@ -15,6 +16,8 @@ var bachelorScene = new Phaser.Class({
         this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
         this.load.image('dialogueButton', 'assets/buttons/dialogueButton.png');
 
+        // Load Diag
+        this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
 
         g_loadAllBG(this);
@@ -31,40 +34,48 @@ var bachelorScene = new Phaser.Class({
     createDialogue: function() {
 
         // Create Dialogue Background
-        this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
-        this.dialogueBGBox.displayWidth = GAME_WIDTH;
-        this.dialogueBGBox.displayHeight = 40 + 2*TEXT_Y_MARGIN;
-        this.dialogueBGBox.visible = true;
+        // this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
+        // this.dialogueBGBox.displayWidth = GAME_WIDTH;
+        // this.dialogueBGBox.displayHeight = 40 + 2*TEXT_Y_MARGIN;
+        // this.dialogueBGBox.visible = true;
+        //
+        // // Create Dialogue Text
+        // this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth)/2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, "", DiagTextSyle);
+        // this.dialogueText.setOrigin(0,0);
+        // this.dialogueText.visible = false;
 
-        // Create Dialogue Text
-        this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth)/2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, "", DiagTextSyle);
-        this.dialogueText.setOrigin(0,0);
-        this.dialogueText.visible = false;
+        // Create Diag
+        this.HudDiagBGCon.createBase();
 
         // TODO(martin): add next button here
         //this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
         this.nextButtonCon.create();
-        this.dialogueBGBox.visible = true;
+        // this.dialogueBGBox.visible = true;
 
         // Load Texts depending on DiagState
         if (DiagState === DiagStateEnum.quest)
-            this.dialogueText.setText(Questions[QuestNo].question);
+            // this.dialogueText.setText(Questions[QuestNo].question);
+            this.HudDiagBGCon.setDiagText(Questions[QuestNo].question);
         else if (DiagState === DiagStateEnum.resp ) {
 
             // Let Bachelor react
             var rand_react = 0;// use random reaction
             switch (this.bachReaction()) {
                 case 1:
-                    this.dialogueText.setText("I do love that as well.");
+                    // this.dialogueText.setText("I do love that as well.");
+                    this.HudDiagBGCon.setDiagText("I do love that as well.");
                     break;
                 case 0:
-                    this.dialogueText.setText("Well whatever.");
+                    // this.dialogueText.setText("Well whatever.");
+                    this.HudDiagBGCon.setDiagText("Well whatever.");
                     break;
                 case -1:
-                    this.dialogueText.setText("That .... seems weird.");
+                    // this.dialogueText.setText("That .... seems weird.");
+                    this.HudDiagBGCon.setDiagText("That .... seems weird.");
                     break;
                 default:
-                    this.dialogueText.setText("I do not know what to respond to that.");
+                    // this.dialogueText.setText("I do not know what to respond to that.");
+                    this.HudDiagBGCon.setDiagText("I do not know what to respond to that.");
                     break;
 
             }
@@ -72,17 +83,17 @@ var bachelorScene = new Phaser.Class({
             CandSeqNo++;
         }
 
-        this.dialogueText.visible = true;
-
         // Set Button Functionality
         var that = this;
         this.nextButton.on('pointerdown', function(pointer) {
             console.log("Pressed NEXT.");
 
             if (CandSeqNo >= CandidateSequ.length){
-                if (AskedQuestions >= NO_TOTQUEST)
-                //TODO(martin) endgamescene;
-                    log('END');
+                if (NoAskedQuestions >= NO_TOTQUEST) {
+                    //TODO(martin) endgamescene;
+                    console.log('END Dialogue');
+                    that.scene.start('revealDecisionScene');
+                }
                 else
                     that.loadNextQuestion();
             }

@@ -6,6 +6,7 @@ var candidateScene = new Phaser.Class({
         function candidateScene() {
             Phaser.Scene.call(this, { key: 'candidateScene' });
 
+            this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
         },
 
@@ -22,13 +23,19 @@ var candidateScene = new Phaser.Class({
     create: function() {
         g_addAllBG(this);
 
-        this.createDialogeMain();
+        // this.createDialogeMain();
 
         if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {
+            // Create Diag
+            this.HudDiagBGCon.createBig();
+            this.HudDiagBGCon.setDiagText(Questions[QuestNo].question);
             this.is_pc = false;
             DiagState = DiagStateEnum.answ_npc;
             this.createDialogueNPC();
         } else {
+            // Create Diag
+            this.HudDiagBGCon.createSmall();
+            this.HudDiagBGCon.setDiagText(Questions[QuestNo].question);
             this.is_pc = true;
             DiagState = DiagStateEnum.answ_pc;
             this.createDialoguePC();
@@ -55,8 +62,8 @@ var candidateScene = new Phaser.Class({
         this.diagButtonText = new Array(NO_DBUTTONS);
         this.diagButtonCors = new Array(NO_DBUTTONS); // Button Correspondences
 
-        posX = Math.floor(this.dialogueBGBox.x + (GAME_WIDTH - TEXT_WIDTH)/2);
-        posY = Math.floor(this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + 50);
+        posX = Math.floor(this.HudDiagBGCon.getDiagBGx() + (GAME_WIDTH - TEXT_WIDTH)/2);
+        posY = Math.floor(this.HudDiagBGCon.getDiagBGy() + DIAG_BASE_TEXT_MARGIN + 20);
 
         var pos_positions = [0, 1, 2, 3];
 
@@ -66,12 +73,12 @@ var candidateScene = new Phaser.Class({
             rand_pos = rand_pos === pos_positions.length ? pos_positions.length - 1 : rand_pos;
 
             var idx = pos_positions[rand_pos];
-            pos_positions.splice(idx, 1);
+            pos_positions.splice(rand_pos, 1);
 
             this.diagButtonCors[i] = idx;
         }
 
-        // create dialogue buttons
+        // createBase dialogue buttons
         for (let i = 0; i < NO_DBUTTONS; i++) {
             this.diagButtons[i] = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0).setInteractive();
             this.diagButtons[i].on('pointerdown', this.onPOButtonClick.bind(this,i,this));
@@ -87,12 +94,12 @@ var candidateScene = new Phaser.Class({
             posY += 45;
         }
 
-        this.dialogueText.visible = true;
+        // this.dialogueText.visible = true;
     },
 
     createDialoguePC: function() {
-        posX = Math.floor(this.dialogueBGBox.x + (GAME_WIDTH - TEXT_WIDTH)/2);
-        posY = Math.floor(this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + 50);
+        posX = Math.floor(this.HudDiagBGCon.getDiagBGx() + (GAME_WIDTH - TEXT_WIDTH)/2);
+        posY = Math.floor(this.HudDiagBGCon.getDiagBGy() + DIAG_BASE_TEXT_MARGIN + 20);
 
         console.log(Candidates[CandidateSequ[CandSeqNo]-1].charType);
 
@@ -103,8 +110,8 @@ var candidateScene = new Phaser.Class({
         // add buttons
         // this.nextButton = this.add.image(GAME_WIDTH - 200, this.dialogueBGBox.y - 80, 'dialogueButton').setOrigin(0,0).setInteractive();
         this.nextButtonCon.create();
-        this.dialogueBGBox.visible = true;
-        this.dialogueText.visible = true;
+        // this.dialogueBGBox.visible = true;
+        // this.dialogueText.visible = true;
 
         // Set Button Functionality
         var that = this;

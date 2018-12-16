@@ -27,7 +27,7 @@ var questionIntroScene = new Phaser.Class({
         // Load Background
         g_loadAllBG(this);
 
-        // Create Diag
+        // Load Diag
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
     },
@@ -38,13 +38,12 @@ var questionIntroScene = new Phaser.Class({
         g_addAllBG(this);
 
         // Create Diag
-        this.HudDiagBGCon.create();
+        this.HudDiagBGCon.createBase();
         this.nextButtonCon.create();
 
         // Generate Intro Text
         this.genIntroText();
 
-        this.add.sprite(640, 360, 'qibg');
         this.add.text(100, 100, 'questionIntroSceneBG.jpg\n\nIntro to game. Click to continue.');
 
         // this.input.once('pointerdown', function () {

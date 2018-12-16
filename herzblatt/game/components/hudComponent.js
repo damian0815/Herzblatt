@@ -1,6 +1,8 @@
 // CONSTANTS
 // diag background
 var DIAG_BG_BASE_HEIGHT = 100;
+var DIAG_BG_SMALL_HEIGHT = 2*30+1*45;
+var DIAG_BG_BIG_HEIGHT = 2*30+3*45;
 var DIAG_BASE_TEXT_MARGIN = 10;
 //var DIAG_BASE_TEXT_WIDTH = GAME_WIDTH - 4*DIAG_BASE_TEXT_MARGIN;
 
@@ -78,13 +80,37 @@ class HudDiagBase {
 
     preload() {
         this.scene.load.image('diagBG', 'assets/pics/dialogueBG.png');
+        this.scene.load.image('diagBigBG', 'assets/pics/dialogueBG.png');
+        this.scene.load.image('diagSmallBG', 'assets/pics/dialogueBG.png');
     }
 
-    create() {
+    createBase() {
         this.diagBG = this.scene.add.image(0, GAME_HEIGHT-DIAG_BG_BASE_HEIGHT, 'diagBG').setOrigin(0,0);
         this.diagBG.displayHeight = DIAG_BG_BASE_HEIGHT;
 
-        this.diagText = this.scene.add.text(this.diagBG.x + DIAG_BASE_TEXT_MARGIN, this.diagBG.y + 2*DIAG_BASE_TEXT_MARGIN, "Test", DiagTextSyle).setOrigin(0,0);
+        this.diagText = this.scene.add.text(this.diagBG.x + DIAG_BASE_TEXT_MARGIN, this.diagBG.y + DIAG_BASE_TEXT_MARGIN, "Test", DiagTextSyle).setOrigin(0,0);
+    }
+
+    createSmall() {
+        this.diagBG = this.scene.add.image(0, GAME_HEIGHT-DIAG_BG_SMALL_HEIGHT, 'diagSmallBG').setOrigin(0,0);
+        this.diagBG.displayHeight = DIAG_BG_SMALL_HEIGHT;
+
+        this.diagText = this.scene.add.text(this.diagBG.x + DIAG_BASE_TEXT_MARGIN, this.diagBG.y + DIAG_BASE_TEXT_MARGIN, "Test", DiagTextSyle).setOrigin(0,0);
+    }
+
+    createBig() {
+        this.diagBG = this.scene.add.image(0, GAME_HEIGHT-DIAG_BG_BIG_HEIGHT, 'diagBigBG').setOrigin(0,0);
+        this.diagBG.displayHeight = DIAG_BG_BIG_HEIGHT;
+
+        this.diagText = this.scene.add.text(this.diagBG.x + DIAG_BASE_TEXT_MARGIN, this.diagBG.y + DIAG_BASE_TEXT_MARGIN, "Test", DiagTextSyle).setOrigin(0,0);
+    }
+
+    getDiagBGx() {
+        return this.diagBG.x;
+    }
+
+    getDiagBGy() {
+        return this.diagBG.y;
     }
 
     setDiagText(text) {

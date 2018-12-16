@@ -45,7 +45,10 @@ var loadingScene = new Phaser.Class({
             var rand_type = Math.ceil(Math.random() * 4); // random value between 1 and 4
             rand_type = rand_type === 0 ? 1 : rand_type; // correct the  possibility of getting 0
             Bachelor.charType = rand_type;
-            console.log("Created Bachelor with type " + rand_type);
+            var fsgn = rand_type < 2  ? 1 : -1;
+            var msgn = rand_type %3  === 0 ? 1 : -1;
+            Bachelor.addFM(fsgn * (g_getFRandom(3) + 10), msgn * (g_getFRandom(3) + 10));
+            console.log("Created Bachelor with type " + rand_type + " and FM: " + Bachelor.fool + "=" + Bachelor.manner);
 
             // Initialize Candidates
             for (var i = 0; i < Candidates.length; i++) {
@@ -85,7 +88,7 @@ var loadingScene = new Phaser.Class({
             // Initialize random bachelor question sequence
             QuestNo = Math.floor(Math.random() * NO_QUESTIONS);
             QuestNo = QuestNo === NO_QUESTIONS ? NO_QUESTIONS-1 : QuestNo;
-            NoAskedQuestions++;
+            NoAskedQuestions = 1;
             DiagState = DiagStateEnum.quest;
             console.log("Starting with Question " + QuestNo);
 
