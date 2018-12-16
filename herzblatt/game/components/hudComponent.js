@@ -79,7 +79,7 @@ class HudDiagBase {
     }
 
     preload() {
-        this.scene.load.image('diagBG', 'assets/pics/dialogueBG.png');
+        this.scene.load.image('diagBG', 'assets/pics/diag/diag_base.png');
         this.scene.load.image('diagBigBG', 'assets/pics/dialogueBG.png');
         this.scene.load.image('diagSmallBG', 'assets/pics/dialogueBG.png');
     }

@@ -27,6 +27,10 @@ class CharDisplayComponent {
         this.scene.load.image('canB', 'assets/pics/chars/candidate_B.png');
         this.scene.load.image('canC', 'assets/pics/chars/candidate_C.png');
         this.scene.load.image('curtain', 'assets/pics/chars/curtain.png');
+
+        this.scene.load.image('spotA', 'assets/pics/spotlight/spotlight_white_noAlpha.jpg');
+        this.scene.load.image('spotB', 'assets/pics/spotlight/spotlight_white.png');
+        this.scene.load.image('spotC', 'assets/pics/spotlight/spotlight_yellow.png');
     }
 
     create(visA = false, visB = false, visC = false, visCur = false) {
@@ -39,6 +43,16 @@ class CharDisplayComponent {
         this.canB.visible = visB;
         this.canC.visible = visC;
         this.curtain.visible = visCur;
+
+        // var gl = this.scene.sys.game.renderer.gl;
+        // var renderer = this.scene.sys.game.renderer;
+        // var mode = [ gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA ];
+        // var modeIndex = renderer.addBlendMode(mode, gl.FUCN_ADD);
+        // // this.add.image(400, 300, 'face').setBlendMode(modeIndex);
+
+        // this.spotA = this.scene.add.image(500,200,'spotA').setAlpha(1.0);
+        // this.spotA.setBlendMode(modeIndex);
+        // this.spotA.visible = true;
     }
 
     setCanAVisibility(value = true) {

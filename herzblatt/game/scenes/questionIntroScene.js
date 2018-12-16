@@ -17,6 +17,7 @@ var questionIntroScene = new Phaser.Class({
             this.HudDiagBGCon = new HudDiagBase(this);
             this.nextButtonCon = new NextButtonComponent(this);
             this.charDisplayCon = new CharDisplayComponent(this);
+            this.introAudioCon = new IntroAudio(this);
             this.readIntroText();
 
             this.anouncer_lvl = 0;
@@ -34,6 +35,7 @@ var questionIntroScene = new Phaser.Class({
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
         this.charDisplayCon.preload();
+        this.introAudioCon.preload()
     },
 
     create: function ()
@@ -45,6 +47,7 @@ var questionIntroScene = new Phaser.Class({
         this.HudDiagBGCon.createBase();
         this.nextButtonCon.create();
         this.charDisplayCon.create();
+        this.introAudioCon.create();
 
         // Generate Intro Text
         this.genIntroText();
@@ -75,10 +78,14 @@ var questionIntroScene = new Phaser.Class({
             switch (this.anouncer_lvl) {
                 case 0:
                     this.charDisplayCon.setCanAVisibility();
-                    if (g_gameState.characterIndex === 0)
+                    this.introAudioCon.playAnnouncerAudio(this.anouncer_lvl);
+                    if (g_gameState.characterIndex === 0) {
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[0] + this.anouncer_var_texts[0][this.rand_player]);
-                    else
+                        // this.introAudioCon.playAnnouncerVarAudio(0, this.rand_player, 5.0);
+                    } else {
                         this.HudDiagBGCon.setDiagText(this.anouncer_texts[0] + this.anouncer_var_texts[1][this.rand_c1]);
+                        // this.introAudioCon.playAnnouncerAudio(1, this.rand_c1);
+                    }
                     break;
                 case 1:
                     this.charDisplayCon.setCanBVisibility();
@@ -108,6 +115,10 @@ var questionIntroScene = new Phaser.Class({
             this.audio_played = true;
         }
     },
+
+    // update: function() {
+    //     if (this.anouncer_lvl > 0 && this.his.introAudioCon.audIsPlaying(this.anouncer_lvl))
+    // },
 
     readIntroText: function () {
         this.anouncer_texts = new Array(ANOUNCER_TEXTS);

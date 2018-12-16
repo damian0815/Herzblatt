@@ -13,7 +13,8 @@ var textHeight=240;
 var textWidth=1100;
 
 var config = {
-    type: Phaser.AUTO,
+    // type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     backgroundColor: '#000000',
