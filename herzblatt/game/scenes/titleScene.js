@@ -12,32 +12,28 @@ var titleScene = new Phaser.Class({
     preload: function ()
     {
         this.load.audio('titleMusic', ['assets/music/titles.mp3']);
-        this.load.image('tbg', 'assets/pics/titleBG.png');
-        this.load.image('play', 'assets/buttons/play.png');
+        this.load.image('tbg', 'assets/pics/bg/start_screen.png');
+        this.load.image('startButt', 'assets/buttons/start_screen_button.png');
+
         g_loadClick(this);
         g_loadSwish(this);
     },
 
     create: function ()
     {
-        this.add.image(640, 360, 'tbg');
+        this.add.image(0, 0, 'tbg').setOrigin(0,0);
 
-        //var music = this.sound.add('titleMusic', { loop:true, volume:0.3 });
-        //music.play();
 
-        //this.add.text(100, 100, 'Herzblatt');
-        //this.add.text(100, 400, 'A game by Some People for Klagenfurt Winter Game Jam 2018');
-
-        var playButton = this.add.sprite(850, 500, 'play').setInteractive();
+        this.playButton = this.add.sprite(850, 500, 'startButt').setInteractive();
         var that = this;
-        playButton.on('pointerover', function(pointer) {
+        this.playButton.on('pointerover', function(pointer) {
             g_playSwish(that);
             this.setTint(0xffaaaa);
         });
-        playButton.on('pointerout', function(pointer) {
+        this.playButton.on('pointerout', function(pointer) {
             this.clearTint();
         });
-         playButton.on('pointerdown', function(pointer) {
+        this.playButton.on('pointerdown', function(pointer) {
             console.log('Clicked play, going to loadingScene');
             that.scene.start('loadingScene');
             g_playClick(that);
