@@ -13,7 +13,7 @@ var candidateScene = new Phaser.Class({
 
     preload: function() {
         // this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
-        this.load.image('dialogueButton', 'assets/buttons/dialogueButton.png');
+        this.load.image('dialogueButton', 'assets/buttons/bar_1100.png');
 
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
@@ -145,7 +145,7 @@ var candidateScene = new Phaser.Class({
 
         // createBase dialogue buttons
         for (let i = 0; i < NO_DBUTTONS; i++) {
-            this.diagButtons[i] = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0).setInteractive();
+            this.diagButtons[i] = this.add.image(posX,posY,'dialogueButton',).setOrigin(0,0).setInteractive();
             this.diagButtons[i].on('pointerdown', this.onPOButtonClick.bind(this,i,this));
             this.diagButtons[i].alpha = 0.3;
             this.diagButtonText[i] = this.add.text(posX+10, posY+10, Questions[QuestNo].getAnswer(this.diagButtonCors[i]), DiagButTextStyle);
@@ -209,7 +209,7 @@ var candidateScene = new Phaser.Class({
         var char_type = Candidates[CandidateSequ[CandSeqNo]-1].charType;
         console.log("Fool: " + Questions[QuestNo].getResponseFool(char_type) + " Manner: " + Questions[QuestNo].getResponseManner(char_type));
 
-        this.diagButtons = this.add.sprite(posX,posY,'dialogueButton',).setOrigin(0,0);
+        this.diagButtons = this.add.image(posX,posY,'dialogueButton',).setOrigin(0,0);
         this.diagButtons.alpha = 0.3;
         this.diagButtonText = this.add.text(posX+10, posY+10, Questions[QuestNo].getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
         Candidates[CandidateSequ[CandSeqNo]-1].addFM(Questions[QuestNo].getResponseFool(char_type), Questions[QuestNo].getResponseManner(char_type));

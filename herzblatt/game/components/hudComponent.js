@@ -125,7 +125,7 @@ class NextButtonComponent {
     }
 
     preload() {
-        this.scene.load.image('buttonNext', 'assets/buttons/dialogueButton.png');
+        this.scene.load.image('buttonNext', 'assets/buttons/next.png');
     }
 
     create() {
