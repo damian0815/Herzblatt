@@ -1,5 +1,8 @@
 
 
+const NO_DBUTTONS = 3;
+const NO_TOTQUEST = 3;
+
 // global vars
 var GAME_HEIGHT = 720;
 var GAME_WIDTH = 1280;

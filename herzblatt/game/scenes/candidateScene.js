@@ -13,7 +13,7 @@ var candidateScene = new Phaser.Class({
 
     preload: function() {
         // this.load.image('dialogueBG', 'assets/buttons/dialogueBG.png');
-        this.load.image('dialogueButton', 'assets/buttons/bar_1100.png');
+        this.load.image('diagButton', 'assets/buttons/bar_1100_new.png');
 
         this.HudDiagBGCon.preload();
         this.nextButtonCon.preload();
@@ -123,32 +123,6 @@ var candidateScene = new Phaser.Class({
         }
     },
 
-    // createDialogeMain: function() {
-    //     // Create Dialogue Background
-    //     this.dialogueBGBox = this.add.image(0, GAME_HEIGHT, 'dialogueBG').setOrigin(0,1);
-    //     this.dialogueBGBox.displayWidth = GAME_WIDTH;
-    //     this.dialogueBGBox.displayHeight = 240 + 2*TEXT_Y_MARGIN;
-    //     this.dialogueBGBox.visible = true;
-    //
-    //     // Create Dialogue Text
-    //     this.dialogueText = this.add.text(this.dialogueBGBox.x + (gameWidth - textWidth)/2, this.dialogueBGBox.y - this.dialogueBGBox.displayHeight + TEXT_Y_MARGIN, Questions[QuestNo].question, DiagTextSyle);
-    //     this.dialogueText.setOrigin(0,0);
-    //     this.dialogueText.visible = true;
-    // },
-
-    /*
-    update: function() {
-        if (Phaser.Input.Keyboard.DownDuration(this.key_adv, KEY_DOWN_DURATION)) {
-            console.log("Pressed ENTER.");
-            console.log("Pressed ENTER, selected diag button is: " + this.selectedDiagButton);
-            if (this.selectedDiagButton == null) {
-                //this.goToBachelorScene();
-            } else {
-                this.onPOButtonClick(this.selectedDiagButton, this);
-            }
-        }
-    },*/
-
     createDialogueNPC: function() {
 
         // add buttons
@@ -174,7 +148,7 @@ var candidateScene = new Phaser.Class({
 
         // createBase dialogue buttons
         for (let i = 0; i < NO_DBUTTONS; i++) {
-            this.diagButtons[i] = this.add.image(posX,posY,'dialogueButton',).setOrigin(0,0).setInteractive();
+            this.diagButtons[i] = this.add.image(posX,posY,'diagButton',).setOrigin(0,0).setInteractive();
             this.diagButtons[i].on('pointerdown', this.onPOButtonClick.bind(this,i,this));
             this.diagButtons[i].alpha = 0.3;
             this.diagButtonText[i] = this.add.text(posX+10, posY+10, Questions[QuestNo].getAnswer(this.diagButtonCors[i]), DiagButTextStyle);
@@ -187,12 +161,6 @@ var candidateScene = new Phaser.Class({
 
             posY += 45;
         }
-
-// <<<<<<< HEAD
-//         // this.dialogueText.visible = true;
-// =======
-
-        // this.dialogueText.visible = true;
 
         this.isPlayingGibberish = false;
         this.selectedDiagButton = 0;
@@ -248,7 +216,7 @@ var candidateScene = new Phaser.Class({
         let question = Questions[QuestNo];
         console.log("Fool: " + question.getResponseFool(char_type) + " Manner: " + question.getResponseManner(char_type));
 
-        this.diagButtons = this.add.image(posX,posY,'dialogueButton',).setOrigin(0,0);
+        this.diagButtons = this.add.image(posX,posY,'diagButton',).setOrigin(0,0);
         this.diagButtons.alpha = 0.3;
         this.diagButtonText = this.add.text(posX+10, posY+10, question.getResponse(char_type), DiagButTextStyle); // INFO(martin)! WOW IS THIS COMPLICATED
         Candidates[CandidateSequ[CandSeqNo]-1].addFM(question.getResponseFool(char_type), question.getResponseManner(char_type));
