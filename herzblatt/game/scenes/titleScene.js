@@ -13,7 +13,7 @@ var titleScene = new Phaser.Class({
     {
         g_loadTitleMusic(this);
         this.load.image('tbg', 'assets/pics/bg/start_screen.png');
-        this.load.image('startButt', 'assets/buttons/start_screen_button.png');
+        this.load.image('startButt', 'assets/buttons/start_screen_button_new.png');
 
         g_loadClick(this);
         g_loadSwish(this);
@@ -25,7 +25,7 @@ var titleScene = new Phaser.Class({
 
         g_playTitleMusic(this);
 
-        this.playButton = this.add.sprite(850, 500, 'startButt').setInteractive();
+        this.playButton = this.add.sprite(1000, 600, 'startButt').setInteractive();
         var that = this;
         this.playButton.on('pointerover', function(pointer) {
             g_playSwish(that);

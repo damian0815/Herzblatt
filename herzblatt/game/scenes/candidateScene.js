@@ -77,11 +77,33 @@ var candidateScene = new Phaser.Class({
 
         console.log("CanSeq: " + CandidateSequ[CandSeqNo]);
 
+        // Detect which candidate to set true
+        var a, b, c;
+        switch (g_gameState.characterIndex) {
+            case 0:
+                a = CandidateSequ[CandSeqNo] === 0;
+                b = CandidateSequ[CandSeqNo] === 1;
+                c = CandidateSequ[CandSeqNo] === 2;
+                break;
+            case 1:
+                a = CandidateSequ[CandSeqNo] === 1;
+                b = CandidateSequ[CandSeqNo] === 0;
+                c = CandidateSequ[CandSeqNo] === 2;
+                break;
+            case 2:
+                a = CandidateSequ[CandSeqNo] === 1;
+                b = CandidateSequ[CandSeqNo] === 2;
+                c = CandidateSequ[CandSeqNo] === 0;
+                break;
+            default:
+                a = false;
+                b = false;
+                c = false;
+                break;
+        }
+
         // this.createDialogeMain();
         this.charDisplayCon.create(true, true, true, true);
-        var a = CandidateSequ[CandSeqNo] === 0;
-        var b = CandidateSequ[CandSeqNo] === 1;
-        var c = CandidateSequ[CandSeqNo] === 2;
         this.charDisplayCon.setSpotVisibility(a, b, c);
 
         if (CandidateSequ[CandSeqNo] === CandidatesEnum.npc) {

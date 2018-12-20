@@ -16,7 +16,17 @@ var config = {
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     backgroundColor: '#000000',
-    scene: [ titleScene, characterSelectScene, loadingScene, bachelorScene, candidateScene, questionIntroScene, revealBachelorScene, revealDecisionScene, youLostScene, youWonScene, resetScene ]
+    scene: [ titleScene,
+        characterSelectScene,
+        loadingScene,
+        bachelorScene,
+        candidateScene,
+        questionIntroScene,
+        revealBachelorScene,
+        revealDecisionScene,
+        youLostScene,
+        youWonScene,
+        resetScene ]
 };
 
 var g_loadClick = function(scene) {
